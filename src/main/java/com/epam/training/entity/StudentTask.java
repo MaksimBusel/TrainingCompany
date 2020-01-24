@@ -34,6 +34,18 @@ public class StudentTask implements Identifable, Serializable {
         this.mark = mark;
     }
 
+    public String getDateFrom() {
+        return task.getDateFrom();
+    }
+
+    public String getDateTo() {
+        return task.getDateTo();
+    }
+
+    public String getName() {
+        return task.getName();
+    }
+
     @Override
     public long getId() {
         return task.getId();

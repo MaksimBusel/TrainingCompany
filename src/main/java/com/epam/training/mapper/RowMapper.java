@@ -19,4 +19,6 @@ public interface RowMapper<T extends Identifable> {
                 throw new IllegalArgumentException("Unknown table = "+ table);
         }
     }
+
+    String getFieldsMapper();
 }

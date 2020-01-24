@@ -1,4 +1,30 @@
 package com.epam.training.command.impl.admin;
 
-public class AddTaskCommand {
+import com.epam.training.command.Command;
+import com.epam.training.command.CommandResult;
+import com.epam.training.command.CommandType;
+import com.epam.training.command.RedirectUrlCreator;
+import com.epam.training.exception.ServiceException;
+import com.epam.training.service.TaskService;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+public class AddTaskCommand implements Command {
+    private TaskService service;
+
+    public AddTaskCommand(TaskService service) {
+        this.service = service;
+    }
+
+    @Override
+    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
+        String courseId = request.getParameter("course_id");
+        String name = request.getParameter("task_name");
+        String dateFrom = request.getParameter("date_from");
+        String dateTo = request.getParameter("date_to");
+        service.addTask(courseId, name, dateFrom, dateTo);
+
+        return CommandResult.redirect(RedirectUrlCreator.create(CommandType.SHOW_COURSE_TASKS));
+    }
 }

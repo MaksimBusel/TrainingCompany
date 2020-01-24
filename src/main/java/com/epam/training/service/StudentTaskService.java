@@ -7,6 +7,7 @@ import com.epam.training.entity.StudentTask;
 import com.epam.training.exception.DaoException;
 import com.epam.training.exception.ServiceException;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public class StudentTaskService {
@@ -20,7 +21,25 @@ public class StudentTaskService {
         try(DaoHelper helper = daoHelperFactory.create()){
             StudentTaskDaoImpl dao = helper.createStudentTaskDao();
             return dao.getMyMarks(userId, courseId);
-        } catch (DaoException e) {
+        } catch (DaoException | SQLException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    public void editFeedback(String taskId, String feedback) throws ServiceException {
+        try(DaoHelper helper = daoHelperFactory.create()){
+            StudentTaskDaoImpl dao = helper.createStudentTaskDao();
+            dao.updateFeedbackById(taskId, feedback);
+        } catch (DaoException | SQLException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    public void editMark(String taskId, String mark) throws ServiceException {
+        try(DaoHelper helper = daoHelperFactory.create()){
+            StudentTaskDaoImpl dao = helper.createStudentTaskDao();
+            dao.updateMarkById(taskId, mark);
+        } catch (DaoException | SQLException e) {
             throw new ServiceException(e);
         }
     }

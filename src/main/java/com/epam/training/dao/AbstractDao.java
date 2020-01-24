@@ -15,6 +15,8 @@ public abstract class AbstractDao<T extends Identifable> implements Dao<T> {
     private Connection connection;
 
     private static final String FIND_ALL = "SELECT * FROM ";
+    private static final String VALUES = "VALUES(";
+    private static final String SAVE_ITEM_IN_DB = "INSERT INTO ";
 
     protected AbstractDao(Connection connection){
         this.connection=connection;
@@ -23,7 +25,6 @@ public abstract class AbstractDao<T extends Identifable> implements Dao<T> {
     protected List<T> executeQuery(String query, RowMapper<T> mapper, Object... params) throws DaoException{
         List<T> entities = new ArrayList<>();
         try(PreparedStatement statement = createStatement(query, params); ResultSet resultSet = statement.executeQuery()){
-            System.out.println(statement);
             while (resultSet.next()){
                 T entity = mapper.map(resultSet);
                 entities.add(entity);
@@ -68,6 +69,18 @@ public abstract class AbstractDao<T extends Identifable> implements Dao<T> {
         return executeQuery(FIND_ALL + table, mapper);
     }
 
-    protected abstract String getTableName();
+    public void save(T item) throws DaoException {
+        String table = getTableName();
+        RowMapper<T> mapper = (RowMapper<T>) RowMapper.create(table);
+        String itemFields = mapper.getFieldsMapper();
+        String itemValues = getValuesItem(item);
+        String query = SAVE_ITEM_IN_DB + table + "(" + itemFields + ")" + VALUES + itemValues + ")";
+        executeUpdate(query);
+    }
 
+    protected String getValuesItem(T item){
+        return null; //change
+    }
+
+    protected abstract String getTableName();
 }

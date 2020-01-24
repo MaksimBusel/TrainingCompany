@@ -21,7 +21,12 @@ public class ProxyConnection implements Connection {
 
     @Override
     public PreparedStatement prepareStatement(String sql) throws SQLException {
-        return null;
+        return connection.prepareStatement(sql);
+    }
+
+    @Override
+    public void close() throws SQLException {
+        connectionPool.returnConnection(this);
     }
 
     @Override
@@ -52,11 +57,6 @@ public class ProxyConnection implements Connection {
     @Override
     public void rollback() throws SQLException {
 
-    }
-
-    @Override
-    public void close() throws SQLException {
-        connectionPool.returnConnection(this);
     }
 
     @Override

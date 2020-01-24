@@ -22,4 +22,16 @@ public class UserRowMapper implements RowMapper<User>{
 
         return user;
     }
+
+    @Override
+    public String getFieldsMapper() {
+        StringBuilder builder = new StringBuilder();
+        builder.append(User.ID +", ");
+        builder.append(User.FIRST_NAME+", ");
+        builder.append(User.LAST_NAME+", ");
+        builder.append(User.LOGIN+", ");
+        builder.append(User.PASSWORD+", ");
+        builder.append(User.ROLE+", ");
+        return builder.toString();
+    }
 }

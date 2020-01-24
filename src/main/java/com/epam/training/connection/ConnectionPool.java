@@ -1,6 +1,5 @@
 package com.epam.training.connection;
 
-import java.sql.Connection;
 import java.util.ArrayDeque;
 import java.util.Queue;
 import java.util.concurrent.Semaphore;
@@ -21,6 +20,7 @@ public class ConnectionPool {
 
     private ConnectionPool() {
         availableConnections = new ArrayDeque<>();
+        connectionInUse = new ArrayDeque<>();
         createPool();
     }
 
@@ -66,7 +66,7 @@ public class ConnectionPool {
 
     private void createPool() {
         for (int i = 0; i < POOL_SIZE; i++) {
-            ProxyConnection connection = ConnectionFactory.create(instance.get());
+            ProxyConnection connection = ConnectionFactory.create(this);
             availableConnections.add(connection);
         }
     }

@@ -2,6 +2,9 @@ package com.epam.training.command.impl.student;
 
 import com.epam.training.command.Command;
 import com.epam.training.command.CommandResult;
+import com.epam.training.command.CommandType;
+import com.epam.training.command.RedirectUrlCreator;
+import com.epam.training.constant.PagesConstant;
 import com.epam.training.entity.Course;
 import com.epam.training.entity.User;
 import com.epam.training.exception.ServiceException;
@@ -26,6 +29,6 @@ public class EnrollCourseCommand implements Command {
         String courseId = request.getParameter("course_id");
         service.enroll(userId, courseId);
 
-        return CommandResult.redirect("/WEB-INF/jsp/mycourses.jsp");
+        return CommandResult.redirect(RedirectUrlCreator.create(CommandType.SHOW_MY_COURSES));
     }
 }

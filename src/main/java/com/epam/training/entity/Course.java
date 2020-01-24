@@ -1,7 +1,6 @@
 package com.epam.training.entity;
 
 import java.io.Serializable;
-import java.util.List;
 import java.util.Objects;
 
 public class Course implements Identifable, Serializable {
@@ -12,6 +11,7 @@ public class Course implements Identifable, Serializable {
     public static final String DATE_TO = "date_to";
     public static final String FIRST_NAME = "first_name";
     public static final String LAST_NAME = "last_name";
+    public static final String TEACHER_ID = "teacher_id";
     public static final String TABLE = "courses";
 
     private long id;
@@ -21,11 +21,21 @@ public class Course implements Identifable, Serializable {
     private String dateTo;
     private String teacherFirstName;
     private String teacherLastName;
+    private String teacherId;
 
     public Course(long id, String name, String description, String dateFrom, String dateTo, String teacherFirstName, String teacherLastName) {
         this.id = id;
         this.teacherFirstName = teacherFirstName;
         this.teacherLastName = teacherLastName;
+        this.name = name;
+        this.description = description;
+        this.dateFrom = dateFrom;
+        this.dateTo = dateTo;
+    }
+
+    public Course(long id, String name, String description, String dateFrom, String dateTo, String teacherId) {
+        this.id = id;
+        this.teacherId = teacherId;
         this.name = name;
         this.description = description;
         this.dateFrom = dateFrom;

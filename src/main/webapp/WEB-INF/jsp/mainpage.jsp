@@ -13,13 +13,18 @@
 <header class="header">
 	<div class="container">
 		<div class="header_inner">
-			<a class="header_logo"href="${request.contextPath}controller?command=mainPage">OnlineTraining</a>
+			<a class="header_logo"href="${request.contextPath}controller?command=showMainPage">OnlineTraining</a>
 			
 			<nav class="nav"> 
-				<a class= "nav_link" href="${request.contextPath}controller?command=myCourses">My Courses</a>
-				<a class= "nav_link" href="#">My Tasks</a>
-				<a class= "nav_link" href="#">en</a>
+				<c:if test="${user.role == 'ADMIN'}"> 
+					<a class= "nav_link" href="${request.contextPath}controller?command=showMyCourses">Edit Courses</a>
+				</c:if>
+				<c:if test="${user.role == 'STUDENT'}">
+				    <a class= "nav_link" href="${request.contextPath}controller?command=showMyCourses">My Courses</a>
+				</c:if>
+				<c:out value="Hello, ${user.firstName} ${user.lastName}"/>
 				<a class= "nav_link" href="${request.contextPath}controller?command=logout"">Log out</a>
+				<a class= "nav_link" href="#">en</a>
 			</nav>
 		</div> 
 	</div>
@@ -61,23 +66,27 @@
 		<td><c:out value="${course.teacherFirstName}"/></td>
 		<td><c:out value="${course.teacherLastName}"/></td>
 		<td class="button">
+			<c:if test="${user.role == 'STUDENT'}">
 			<form action="controller" method= "post">
 			    <input type="hidden" name="course_id"  value="${course.id}"/>
 			    <input type="hidden" name="command" value="enrollCourse">
 				<input type="submit" value="Enroll"/>
 			</form>
+			</c:if >
+			<c:if test="${user.role == 'ADMIN'}">
+			<form action="controller" method= "post">
+			    <input type="hidden" name="course_id"  value="${course.id}"/>
+			    <input type="hidden" name="command" value="editCourse">
+				<input type="submit" value="Edit"/>
+			</form>
+			</c:if >
 		</td>
 	</tr>
     </c:forEach>
 </table>
 
 <footer>
-	<span class="social"> 
-		<a href="#"><img src="img/Facebook.png" alt=""></a>
-		<a href="#"><img src="img/Instagram.png" alt=""></a>
-		<a href="#"><img src="img/VK.png" alt=""></a>
-		<a href="#"><img src="img/Telegram.png" alt=""></a>
-	</span>
+	
 	
 	<span class="center" All rights reserveds &copy; 2020 span/>
 </footer>

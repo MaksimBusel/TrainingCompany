@@ -2,6 +2,7 @@ package com.epam.training.command.impl.common;
 
 import com.epam.training.command.Command;
 import com.epam.training.command.CommandResult;
+import com.epam.training.constant.PagesConstant;
 import com.epam.training.entity.Task;
 import com.epam.training.exception.ServiceException;
 import com.epam.training.service.TaskService;
@@ -24,6 +25,6 @@ public class ShowCourseTasksCommand implements Command {
         request.setAttribute("tasks",tasks);
         request.setAttribute("course_id", courseId);
 
-        return CommandResult.forward("/WEB-INF/jsp/coursetasks.jsp");
+        return CommandResult.forward(PagesConstant.COURSE_TASKS);
     }
 }

@@ -1,8 +1,10 @@
 package com.epam.training.command.impl.common;
 
+import com.epam.training.command.CommandType;
+import com.epam.training.constant.PagesConstant;
 import com.epam.training.command.Command;
 import com.epam.training.command.CommandResult;
-import com.epam.training.entity.Course;
+import com.epam.training.command.RedirectUrlCreator;
 import com.epam.training.entity.User;
 import com.epam.training.exception.ServiceException;
 import com.epam.training.service.UserService;
@@ -27,6 +29,7 @@ public class LoginCommand implements Command {
         HttpSession session = request.getSession();
         user.ifPresent(u -> session.setAttribute("user", u));
 
-        return user.isPresent() ? CommandResult.redirect("/WEB-INF/jsp/mainpage.jsp") : CommandResult.redirect("/WEB-INF/jsp/error.jsp"); //бросать ошибку: неправильный логин или пароль и отображать на login.jsp
+        return user.isPresent() ? CommandResult.redirect(RedirectUrlCreator.create(CommandType.SHOW_MAIN_PAGE)) :
+                                  CommandResult.forward(PagesConstant.LOGIN);
     }
 }

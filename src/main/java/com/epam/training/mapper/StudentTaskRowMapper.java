@@ -1,7 +1,9 @@
 package com.epam.training.mapper;
 
+import com.epam.training.entity.Course;
 import com.epam.training.entity.StudentTask;
 import com.epam.training.entity.Task;
+import com.epam.training.entity.User;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -19,5 +21,16 @@ public class StudentTaskRowMapper implements RowMapper<StudentTask>{
         StudentTask studentTask = new StudentTask(id,name, dateFrom, dateTo, mark, feedback);
 
         return studentTask;
+    }
+
+    @Override
+    public String getFieldsMapper() {
+        StringBuilder builder = new StringBuilder();
+        builder.append(Task.ID +", ");
+        builder.append(StudentTask.MARK+", ");
+        builder.append(StudentTask.FEEDBACK+", ");
+        builder.append(User.ID+", ");
+        builder.append(Course.ID);
+        return builder.toString();
     }
 }

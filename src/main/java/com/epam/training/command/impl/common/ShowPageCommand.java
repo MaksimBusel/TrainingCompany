@@ -16,6 +16,6 @@ public class ShowPageCommand implements Command {
 
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
-        return CommandResult.redirect(page);
+        return CommandResult.forward(page);
     }
 }

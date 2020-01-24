@@ -14,10 +14,10 @@
 <header class="header">
 	<div class="container">
 		<div class="header_inner">
-			<a class="header_logo"href="${request.contextPath}controller?command=mainPage">OnlineTraining</a>
+			<a class="header_logo"href="${request.contextPath}controller?command=showMainPage">OnlineTraining</a>
 			
 			<nav class="nav"> 
-				<a class= "nav_link" href="${request.contextPath}controller?command=myCourses">My Courses</a>
+				<a class= "nav_link" href="${request.contextPath}controller?command=showMyCourses">My Courses</a>
 				<a class= "nav_link" href="#">My Tasks</a>
 				<a class= "nav_link" href="#">en</a>
 				<a class= "nav_link" href="${request.contextPath}controller?command=logout"">Log out</a>

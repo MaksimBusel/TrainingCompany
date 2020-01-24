@@ -8,12 +8,18 @@ import com.epam.training.exception.DaoException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Optional;
 
 public class UserDaoImpl extends AbstractDao<User> implements UserDao {
     private static final String FIND_BY_LOGIN_AND_PASSWORD ="SELECT * FROM users WHERE login = ? and password = ?";
     private static final String FIND_BY_ID ="SELECT * FROM users WHERE user_id = ?";
     private static final String REMOVE_BY_ID ="DELETE FROM users WHERE user_id = ?";
+    private static final String GET_STUDENTS_WITH_INFO_ABOUT_COURSES = "SELECT first_name, last_name, login, course_name," +
+            " date_from, date_to FROM users INNER JOIN users_courses ON users.user_id= users_courses.user_id INNER JOIN " +
+            "courses ON courses.course_id=users_courses.course_id";
+
+    //not use
     private static final String SAVE_USER = "INSERT INTO users (first_name, last_name, login, password, role) VALUES(?, ?, ?, ?, ?)";
 
     public UserDaoImpl(Connection connection) {
@@ -36,25 +42,15 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDao {
     }
 
     @Override
-    public void save(User user) throws DaoException {
-        String firstName = user.getFirstName();
-        String lastName = user.getLastName();
-        String login = user.getLogin();
-        String password = user.getPassword();
-        String role = user.getRole().name();
-        try(PreparedStatement statement = createStatement(SAVE_USER, firstName,lastName, login,password,role.toLowerCase())){
-            statement.executeUpdate();
-        }catch (SQLException e) {
-            throw new DaoException(e);
-        }
-    }
-
-    @Override
     public void removeById(Long id) throws DaoException {
         try(PreparedStatement statement = createStatement(REMOVE_BY_ID, id)){
             statement.executeUpdate();
         } catch (SQLException e) {
             throw new DaoException(e);
         }
+    }
+
+    public List<User> getStudents(String role) throws DaoException {
+        return executeQuery(GET_STUDENTS_WITH_INFO_ABOUT_COURSES, new UserRowMapper(), role);
     }
 }

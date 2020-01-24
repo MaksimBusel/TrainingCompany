@@ -33,11 +33,6 @@ public class StudentCourseDaoImpl extends AbstractDao implements StudentCourseDa
     }
 
     @Override
-    public void save(Identifable item) throws DaoException {
-        
-    }
-
-    @Override
     public void removeById(Long id) throws DaoException {
 
     }

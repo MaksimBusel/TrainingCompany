@@ -2,6 +2,7 @@ package com.epam.training.command.impl.student;
 
 import com.epam.training.command.Command;
 import com.epam.training.command.CommandResult;
+import com.epam.training.constant.PagesConstant;
 import com.epam.training.entity.StudentTask;
 import com.epam.training.entity.User;
 import com.epam.training.exception.ServiceException;
@@ -28,6 +29,6 @@ public class ShowMyMarksCommand implements Command {
         List<StudentTask> tasks = service.showMyMarks(userId, courseId);
         request.setAttribute("tasks", tasks);
 
-        return CommandResult.forward("/WEB-INF/jsp/mymarks.jsp");
+        return CommandResult.forward(PagesConstant.MY_MARKS);
     }
 }

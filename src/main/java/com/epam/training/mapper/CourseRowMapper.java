@@ -20,4 +20,16 @@ public class CourseRowMapper implements RowMapper<Course> {
 
         return course;
     }
+
+    @Override
+    public String getFieldsMapper() {
+        StringBuilder builder = new StringBuilder();
+        builder.append(Course.ID +", ");
+        builder.append(Course.COURSE_NAME+", ");
+        builder.append(Course.DESCRIPTION+", ");
+        builder.append(Course.DATE_FROM+", ");
+        builder.append(Course.DATE_TO+", ");
+        builder.append(Course.TEACHER_ID);
+        return builder.toString();
+    }
 }

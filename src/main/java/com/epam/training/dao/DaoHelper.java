@@ -15,7 +15,7 @@ public class DaoHelper implements AutoCloseable {
         this.connection = connectionPool.getConnection();
     }
 
-    public UserDao createUserDao() {
+    public UserDaoImpl createUserDao() {
         return new UserDaoImpl(connection);
     }
 
