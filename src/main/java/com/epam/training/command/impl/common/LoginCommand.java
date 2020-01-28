@@ -4,7 +4,7 @@ import com.epam.training.command.CommandType;
 import com.epam.training.constant.PagesConstant;
 import com.epam.training.command.Command;
 import com.epam.training.command.CommandResult;
-import com.epam.training.command.RedirectUrlCreator;
+import com.epam.training.RedirectUrlCreator;
 import com.epam.training.entity.User;
 import com.epam.training.exception.ServiceException;
 import com.epam.training.service.UserService;

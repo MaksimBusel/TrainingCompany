@@ -15,23 +15,10 @@ public class UserRowMapper implements RowMapper<User>{
         String firstName = resultSet.getString(User.FIRST_NAME);
         String lastName = resultSet.getString(User.LAST_NAME);
         String login = resultSet.getString(User.LOGIN);
-        String password = resultSet.getString(User.PASSWORD);
         String role = resultSet.getString(User.ROLE);
         UserRole userRole = UserRole.valueOf(role.toUpperCase());
-        User user = new User(id, firstName, lastName, login, password, userRole);
+        User user = new User(id, firstName, lastName, login, userRole);
 
         return user;
-    }
-
-    @Override
-    public String getFieldsMapper() {
-        StringBuilder builder = new StringBuilder();
-        builder.append(User.ID +", ");
-        builder.append(User.FIRST_NAME+", ");
-        builder.append(User.LAST_NAME+", ");
-        builder.append(User.LOGIN+", ");
-        builder.append(User.PASSWORD+", ");
-        builder.append(User.ROLE+", ");
-        return builder.toString();
     }
 }

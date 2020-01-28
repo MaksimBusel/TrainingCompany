@@ -1,94 +1,51 @@
-body {
-	
-	font-size:15px;
-	color: #333;
-	line-height: 1.6;
-	margin: 0;
-}
-
-*, *:after, *:before{
+* {
 	box-sizing: border-box;
 }
+html{
+	height: 100%;
+}
 
-h1, h2, h3, h4, h5, h6 {
+body {
 	margin: 0;
-}
-/* Container */
-
-.container{
-	width: 100%;
-	max-width:1400px;
-	margin: 0 auto;
-}
-
-
-/*Intro*/
-
-.intro{
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	width: 100%;
-	height: 25vh;
-	background-color: #5ce7e9;
-	background-size: contain;
-}
-
-.intro_inner {
+	color: black;
+	height: 100%;
 	
-	width: 100%;
-	max-width: 780px;
-	margin: 0 auto;
-	
-	text-align: center;
 }
 
-.intro_title {
-	font-size: 50px;
-	font-weight: 700;
-	text-transform: uppercase;
-	line-height: 1.0;
-	
-	color: #fff;
-}
+/* HEADER */
 
-/* Header */
-
-.header {
+.header{
+	margin-bottom: 10px;
 	width: 100%;
-	padding-top: 5px;
-	position: absolute;
-	top: 0;
-	left: 0;
-	right: 0;
-	z-index:1000;
 }
 
 .header_logo {
 	font-size:30px;
 	font-weight: 700;
 	text-decoration: none;
-	
-	color: black;
+	padding-left: 50px;
+	color: white;
 	transition: color .1s linear;
 }
 
 .header_logo:hover{
-	color: #fff;
+	color: black;
 }
 
 .header_inner{
 	display: flex;
 	justify-content: space-between;
-	align-items: center;
+	height: 80px;
+	background-color: #77CED9;
+	padding-top: 15px;
+	padding-right: 20px;
 }
-
 
 /* Navigation */
 
 .nav {
 	list-style: none;
-	font-size:14px;
+	font-size:16px;
 	text-transform: uppercase;
 	
 }
@@ -99,7 +56,7 @@ h1, h2, h3, h4, h5, h6 {
 	margin: 0 10px;
 	position: relative;
 	
-	color: black;
+	color: white;
 	text-decoration: none;
 	
 	transition: color .1s linear;
@@ -109,13 +66,9 @@ h1, h2, h3, h4, h5, h6 {
 	content: "";
 	display: block;
 	width: 100%;
-	height: 3px;
-	
-	
-	background-color: #fff;
+	height: 1px;
+	background-color: black;
 	opacity: 0;
-	
-	position: absolute;
 	top: 100%;
 	left: 0;
 	z-index: 1;
@@ -124,11 +77,36 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .nav_link:hover {
-	color: #fff;
+	color: black;
 }
 
 .nav_link:hover:after {
 	opacity:1;
+}
+
+
+
+/*MENU*/
+
+.menu{
+	background: #73b7c3;
+	height: 50px;
+	font-size: 14px;
+	text-transform: uppercase;
+	padding: 20px 70px 10px;
+}
+
+
+/*CONTENT*/
+
+.content{
+	float: center;
+	min-height: 70%;
+}
+
+.inner_content{
+	min-height: 500px;
+	background-color: white;
 }
 
 /* Section */
@@ -141,7 +119,6 @@ h1, h2, h3, h4, h5, h6 {
 	width: 100%;
 	max-width: 950px;
 	margin: 0 auto;
-	margin-bottom: 40px;
 	text-align: center;
 }
 
@@ -152,12 +129,13 @@ h1, h2, h3, h4, h5, h6 {
 /*Table*/
 
 table{
-	width: 70%;
+	width: 90%;
 	font-family: sans-serif;
 	font-size:14px;
 	text-align:center;
 	border-collapse: collapse;
-	margin: 0 auto;
+	margin: -20 auto;
+	margin-bottom: 40px;
 }
 
 th, td:first-child {
@@ -168,71 +146,94 @@ th, td:first-child {
 
 th, td {
 	border-style: solid;
-	border-width: 0 1px 1px 0;
-	border-color: #fff
+	border-width: 0px 1px 1px 0px;
+	border-color: #fff;
 }
 
 td {
 	background: #d8e6f3;
+	min-width: 140px;
 }
 
 td:first-child, th:first-child{
 	text-align: left;
+	min-width: 120px;
 }
 
 td:last-child, th:last-child{
 	background: white;
 	text-align: left;
+	min-width: 20px;
 }
 
 .description {
-	max-width: 400px;
+	max-width: 650px;
+	text-align: left;
+	padding: 5px;
 }
 
+/* FOOTER */
 
-/* Footer */
-
-footer {
+footer{
 	width: 100%;
-	height: auto;
-	background: #5ce7e9;
-	padding-top: 25px;
-	margin: 0 auto;
-	text-align: center;
+	background: #77CED9;
+	height: 70px;
+	position: relative;
+	padding-top: 20px;
+	color: white;
 }
 
 .social img {
 	width: 2%;
+	margin-left: 15px;
+	float:right;
 }
 
 .social img:hover {
-	background: #494949;
+	background: white;
 	border-radius: 50%;
-	margin-left: 10px;
-	margin-bottom: 10px;
+	margin-top: 2px;
 }
 
-/* Button*/
+.footer_inner{
+	margin-right: 30px;
+	margin-left: 30px;
+}
 
-#button{
+
+
+/* CLEARFIX */
+
+.row:after{
+	visibility: hidden;
+	display: block;
+	font-size: 0;
+	content: " ";
+	clear: both;
+	height: 0;
+}
+
+.row{
 	display: inline-block;
-	vertical-align: top;
-	
-	margin-top: 0;
-	border: 1px solid #333;
-	padding: 10px 10px;
-	
-	font-size: 14px;
-	font-weight: 700;
-	color: #333;
-	text-decoration: none;
-	
-	transition: color .1s linear;
 }
 
-#button:hover{
-	color: #fff;
+* html .row{
+	height: 1%;
 }
+
+.row{display: block;}
+
+.
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -27,12 +27,20 @@ public class DaoHelper implements AutoCloseable {
         return new CourseDaoImpl(connection);
     }
 
+    public CourseDtoDaoImpl createCourseDtoDao() {
+        return new CourseDtoDaoImpl(connection);
+    }
+
     public StudentTaskDaoImpl createStudentTaskDao() {
         return new StudentTaskDaoImpl(connection);
     }
 
     public StudentCourseDaoImpl createStudentCourseDao() {
         return new StudentCourseDaoImpl(connection);
+    }
+
+    public StudentTaskDtoDaoImpl createStudentTaskDtoDao() {
+        return new StudentTaskDtoDaoImpl(connection);
     }
 
     @Override

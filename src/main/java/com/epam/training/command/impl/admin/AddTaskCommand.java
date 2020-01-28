@@ -3,7 +3,7 @@ package com.epam.training.command.impl.admin;
 import com.epam.training.command.Command;
 import com.epam.training.command.CommandResult;
 import com.epam.training.command.CommandType;
-import com.epam.training.command.RedirectUrlCreator;
+import com.epam.training.RedirectUrlCreator;
 import com.epam.training.exception.ServiceException;
 import com.epam.training.service.TaskService;
 
@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class AddTaskCommand implements Command {
+    private static final String COURSE_ID_PARAMETER="&course_id=";
+
     private TaskService service;
 
     public AddTaskCommand(TaskService service) {
@@ -25,6 +27,6 @@ public class AddTaskCommand implements Command {
         String dateTo = request.getParameter("date_to");
         service.addTask(courseId, name, dateFrom, dateTo);
 
-        return CommandResult.redirect(RedirectUrlCreator.create(CommandType.SHOW_COURSE_TASKS));
+        return CommandResult.redirect(RedirectUrlCreator.create(CommandType.SHOW_MANAGE_TASKS_PAGE)+COURSE_ID_PARAMETER +courseId);
     }
 }

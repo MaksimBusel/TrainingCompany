@@ -29,6 +29,9 @@ public class ShowMyMarksCommand implements Command {
         List<StudentTask> tasks = service.showMyMarks(userId, courseId);
         request.setAttribute("tasks", tasks);
 
+        System.out.println(courseId);
+        System.out.println(userId);
+
         return CommandResult.forward(PagesConstant.MY_MARKS);
     }
 }

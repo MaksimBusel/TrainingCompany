@@ -4,16 +4,19 @@ import java.io.Serializable;
 import java.util.Objects;
 
 public class StudentTask implements Identifable, Serializable {
+    public static final String STUDENT_TASK_ID = "student_task_id";
     public static final String MARK = "mark";
     public static final String FEEDBACK = "feedback";
     public static final String TABLE = "student_tasks";
 
     private Task task;
+    private long studentTaskId;
     private Integer mark;
     private String feedback;
 
-    public StudentTask(long id, String name, String dateFrom, String dateTo, Integer mark, String feedback) {
+    public StudentTask(long id, long studentTaskId, String name, String dateFrom, String dateTo, Integer mark, String feedback) {
         task = new Task(id, name, dateFrom, dateTo);
+        this.studentTaskId=studentTaskId;
         this.mark = mark;
         this.feedback = feedback;
     }
@@ -44,6 +47,10 @@ public class StudentTask implements Identifable, Serializable {
 
     public String getName() {
         return task.getName();
+    }
+
+    public long getStudentTaskId() {
+        return studentTaskId;
     }
 
     @Override

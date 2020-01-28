@@ -9,8 +9,6 @@ public class Course implements Identifable, Serializable {
     public static final String DESCRIPTION = "description";
     public static final String DATE_FROM = "date_from";
     public static final String DATE_TO = "date_to";
-    public static final String FIRST_NAME = "first_name";
-    public static final String LAST_NAME = "last_name";
     public static final String TEACHER_ID = "teacher_id";
     public static final String TABLE = "courses";
 
@@ -19,19 +17,7 @@ public class Course implements Identifable, Serializable {
     private String description;
     private String dateFrom;
     private String dateTo;
-    private String teacherFirstName;
-    private String teacherLastName;
     private String teacherId;
-
-    public Course(long id, String name, String description, String dateFrom, String dateTo, String teacherFirstName, String teacherLastName) {
-        this.id = id;
-        this.teacherFirstName = teacherFirstName;
-        this.teacherLastName = teacherLastName;
-        this.name = name;
-        this.description = description;
-        this.dateFrom = dateFrom;
-        this.dateTo = dateTo;
-    }
 
     public Course(long id, String name, String description, String dateFrom, String dateTo, String teacherId) {
         this.id = id;
@@ -74,20 +60,12 @@ public class Course implements Identifable, Serializable {
         this.dateTo = dateTo;
     }
 
-    public String getTeacherFirstName() {
-        return teacherFirstName;
+    public String getTeacherId() {
+        return teacherId;
     }
 
-    public void setTeacherFirstName(String teacherFirstName) {
-        this.teacherFirstName = teacherFirstName;
-    }
-
-    public String getTeacherLastName() {
-        return teacherLastName;
-    }
-
-    public void setTeacherLastName(String teacherLastName) {
-        this.teacherLastName = teacherLastName;
+    public void setTeacherId(String teacherId) {
+        this.teacherId = teacherId;
     }
 
     @Override
@@ -109,19 +87,17 @@ public class Course implements Identifable, Serializable {
                 description != null ? description.equals(course.description) : course.description == null &&
                 dateFrom != null ? dateFrom.equals(course.dateFrom) : course.dateFrom == null &&
                 dateTo != null ? dateTo.equals(course.dateTo) : course.dateTo == null &&
-                teacherFirstName != null ? teacherFirstName.equals(course.teacherFirstName) : course.teacherFirstName == null &&
-                teacherLastName != null ? teacherLastName.equals(course.teacherLastName) : course.teacherLastName == null;
+                teacherId== course.teacherId;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, description, dateFrom, dateTo, teacherFirstName, teacherLastName);
+        return Objects.hash(id, name, description, dateFrom, dateTo, teacherId);
     }
 
     @Override
     public String toString() {
         return "Course{" + "id=" + id + ", name='" + name + ", description='" + description +
-                ", dateFrom='" + dateFrom +  ", dateTo='" + dateTo +  ", teacherFirstName='" + teacherFirstName +
-                ", teacherLastName='" + teacherLastName + '}';
+                ", dateFrom='" + dateFrom +  ", dateTo='" + dateTo + '}';
     }
 }

@@ -35,7 +35,7 @@ public class TaskService {
         }
     }
 
-    public boolean deleteTask(String id) throws ServiceException {
+    public boolean lockTask(String id) throws ServiceException {
         try(DaoHelper helper = daoHelperFactory.create()){
             TaskDaoImpl dao = helper.createTaskDao();
             Long taskId = Long.valueOf(id);

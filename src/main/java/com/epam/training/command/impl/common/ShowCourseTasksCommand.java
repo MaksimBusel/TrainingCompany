@@ -23,7 +23,7 @@ public class ShowCourseTasksCommand implements Command {
         String courseId = request.getParameter("course_id");
         List<Task> tasks = service.showTasksCourse(courseId);
         request.setAttribute("tasks",tasks);
-        request.setAttribute("course_id", courseId);
+        request.setAttribute("courseId", courseId);
 
         return CommandResult.forward(PagesConstant.COURSE_TASKS);
     }

@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ include file="/WEB-INF/jsp/common/header.jsp" %>
 
 <html>
 <head>
@@ -11,29 +12,7 @@
 
 <body>
 
-<header class="header">
-	<div class="container">
-		<div class="header_inner">
-			<a class="header_logo"href="${request.contextPath}controller?command=showMainPage">OnlineTraining</a>
-			
-			<nav class="nav"> 
-				<a class= "nav_link" href="${request.contextPath}controller?command=showMyCourses">My Courses</a>
-				<a class= "nav_link" href="#">My Tasks</a>
-				<a class= "nav_link" href="#">en</a>
-				<a class= "nav_link" href="${request.contextPath}controller?command=logout"">Log out</a>
-			</nav>
-		</div> 
-	</div>
-</header>
-
-<div class="intro">
-	<div class="container">
-		<div class="intro_inner">
-			<h1 class="intro_title"></h1>
-		</div>
-	</div>
-</div>
-
+<div class="content">
 <section class="section">
 	<div class="container">
 		<div class="section_header">
@@ -65,10 +44,11 @@
     </c:forEach>
 </table>
 
-
-<footer>
-	<! span class="center" All rights reserveds &copy; 2020span >
-</footer>
+</div>
+	
+<div class="footer">
+	<jsp:include page="/WEB-INF/jsp/common/footer.jsp" />
+</div>
 	
 </body>
 </html>

@@ -1,4 +1,4 @@
-package com.epam.training.command;
+package com.epam.training;
 
 public class RedirectUrlCreator {
 

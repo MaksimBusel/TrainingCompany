@@ -48,7 +48,7 @@ public class Task implements Identifable, Serializable {
 
     @Override
     public long getId() {
-        return 0;
+        return id;
     }
 
     @Override

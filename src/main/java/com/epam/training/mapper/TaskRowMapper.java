@@ -19,15 +19,4 @@ public class TaskRowMapper implements RowMapper<Task> {
 
         return task;
     }
-
-    @Override
-    public String getFieldsMapper() {
-        StringBuilder builder = new StringBuilder();
-        builder.append(Task.ID +", ");
-        builder.append(Course.ID+", ");
-        builder.append(Task.TASK_NAME+", ");
-        builder.append(Task.DATE_FROM+", ");
-        builder.append(Course.DATE_TO);
-        return builder.toString();
-    }
 }

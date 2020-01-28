@@ -7,16 +7,14 @@ import com.epam.training.exception.DaoException;
 import com.epam.training.mapper.TaskRowMapper;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
 public class TaskDaoImpl extends AbstractDao<Task> implements TaskDao {
-    private static final String GET_TASKS_BY_COURSE_ID = "SELECT * FROM tasks WHERE course_id=?";
+    private static final String FIND_TASKS_BY_COURSE_ID = "SELECT * FROM tasks WHERE course_id=? AND lock_task=0";
     private static final String SAVE_TASK = "INSERT INTO tasks (course_id, task_name, date_from, date_to) VALUES(?, ?, ?, ?)";
-    private static final String REMOVE_BY_ID = "DELETE FROM tasks WHERE task_id = ?";
-    private static final String EDIT_TASK_BY_ID = "UPDATE tasks SET course_id=?, task_name=?, date_from=?, date_to=?," +
+    private static final String LOCK_BY_ID = "UPDATE tasks SET lock_task=1 WHERE task_id = ?";
+    private static final String EDIT_TASK_BY_ID = "UPDATE tasks SET course_id=?, task_name=?, date_from=?, date_to=?" +
             " WHERE task_id =?";
 
     //not use
@@ -32,8 +30,13 @@ public class TaskDaoImpl extends AbstractDao<Task> implements TaskDao {
     }
 
     @Override
-    public Optional<Task> getById(Long id) throws DaoException {
+    public Optional<Task> findById(Long id) throws DaoException {
         return executeForSingleResult(FIND_BY_ID, new TaskRowMapper(), id);
+    }
+
+    @Override
+    public void save(Task item) throws DaoException {
+
     }
 
     public void save(String courseId, String name, String dateFrom, String dateTo) throws DaoException {
@@ -42,11 +45,11 @@ public class TaskDaoImpl extends AbstractDao<Task> implements TaskDao {
 
     @Override
     public void removeById(Long id) throws DaoException {
-        executeUpdate(REMOVE_BY_ID, id);
+        executeUpdate(LOCK_BY_ID, id);
     }
 
     public List<Task> getTasksByCourseId(String courseId) throws DaoException {
-        return executeQuery(GET_TASKS_BY_COURSE_ID, new TaskRowMapper(), courseId);
+        return executeQuery(FIND_TASKS_BY_COURSE_ID, new TaskRowMapper(), courseId);
     }
 
     public void updateById(String courseId, String name, String dateFrom, String dateTo, String taskId) throws DaoException {

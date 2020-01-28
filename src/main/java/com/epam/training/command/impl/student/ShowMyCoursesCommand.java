@@ -3,6 +3,7 @@ package com.epam.training.command.impl.student;
 import com.epam.training.constant.PagesConstant;
 import com.epam.training.command.Command;
 import com.epam.training.command.CommandResult;
+import com.epam.training.dto.CourseDto;
 import com.epam.training.entity.Course;
 import com.epam.training.entity.User;
 import com.epam.training.exception.ServiceException;
@@ -25,7 +26,7 @@ public class ShowMyCoursesCommand implements Command {
         HttpSession session = request.getSession(false);
         User user =(User) session.getAttribute("user");
         long userId = user.getId();
-        List<Course> myCourses = service.showMyCourses(userId);
+        List<CourseDto> myCourses = service.showMyCourses(userId);
         request.setAttribute("myCourses", myCourses);
 
         return CommandResult.forward(PagesConstant.MY_COURSES);

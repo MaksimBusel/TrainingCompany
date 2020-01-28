@@ -7,6 +7,11 @@ import com.epam.training.entity.StudentTask;
 import com.epam.training.exception.DaoException;
 import com.epam.training.exception.ServiceException;
 
+import javax.servlet.http.Part;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -26,21 +31,62 @@ public class StudentTaskService {
         }
     }
 
-    public void editFeedback(String taskId, String feedback) throws ServiceException {
+    public void estimateTask(String taskId, String mark, String feedback) throws ServiceException {
         try(DaoHelper helper = daoHelperFactory.create()){
             StudentTaskDaoImpl dao = helper.createStudentTaskDao();
-            dao.updateFeedbackById(taskId, feedback);
+            dao.updateMarkAndFeedbackById(taskId, mark, feedback);
         } catch (DaoException | SQLException e) {
             throw new ServiceException(e);
         }
     }
 
-    public void editMark(String taskId, String mark) throws ServiceException {
+    public List<StudentTask> showStudentTask(String studentId, String courseId) throws ServiceException {
         try(DaoHelper helper = daoHelperFactory.create()){
             StudentTaskDaoImpl dao = helper.createStudentTaskDao();
-            dao.updateMarkById(taskId, mark);
+            return dao.findStudentTask(studentId, courseId);
         } catch (DaoException | SQLException e) {
             throw new ServiceException(e);
         }
     }
+
+    public void uploadStudentTask(Part studentTask, String taskId, long userId) throws ServiceException, IOException {
+        try(DaoHelper helper = daoHelperFactory.create()){
+
+            System.out.println("начало сервиса");
+
+            StudentTaskDaoImpl dao = helper.createStudentTaskDao();
+            if(studentTask!=null){
+                System.out.println(studentTask.getName());
+            }
+            InputStream inputStream = studentTask.getInputStream();
+            System.out.println(inputStream);
+        } catch (SQLException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+//    private String saveFileOn(Part studentTask) throws IOException {
+//        InputStream inputStream = studentTask.getInputStream();
+//        String pathToFile = "/src/main/students/tasks/" + extractFileName(studentTask);
+//        FileOutputStream outputStream = new FileOutputStream(pathToFile);
+//
+//        int time = 0;
+//        while ((time=inputStream.read())!=-1){
+//
+//        }
+//    }
+
+//    private String extractFileName(Part studentTask){
+//        String contentDisposition = studentTask.getHeader("content-disposition");
+//        String[] items = contentDisposition.split(";");
+//        for (String time : items) {
+//            System.out.println(time);
+//            if (time.trim().startsWith("filename")) {
+//                String clientFileName = time.substring(time.indexOf("=") + 2, time.length() - 1);
+//                clientFileName = clientFileName.replace("\\", "/");
+//                int i = clientFileName.lastIndexOf('/');
+//                return clientFileName.substring(i + 1);
+//            }
+//        }
+//    }
 }

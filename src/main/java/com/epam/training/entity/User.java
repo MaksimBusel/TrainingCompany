@@ -19,10 +19,9 @@ public class User implements Identifable, Serializable {
     private String password;
     private UserRole role;
 
-    public User(long id, String firstName, String lastName, String login, String password, UserRole role) {
+    public User(long id, String firstName, String lastName, String login, UserRole role) {
         this.id = id;
         this.login = login;
-        this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
         this.role = role;
@@ -45,10 +44,6 @@ public class User implements Identifable, Serializable {
 
     public void setLogin(String login) {
         this.login = login;
-    }
-
-    public String getPassword() {
-        return password;
     }
 
     public void setPassword(String password) {

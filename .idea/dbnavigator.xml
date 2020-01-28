@@ -23,15 +23,11 @@
     <autoscroll-to-editor value="false" />
     <autoscroll-from-editor value="true" />
     <show-object-properties value="true" />
-    <loaded-nodes>
-      <connection connection-id="3b473d8d-fa38-4565-9874-d7bc0d711767">
-        <schema name="training" object-types="table, view" />
-      </connection>
-    </loaded-nodes>
+    <loaded-nodes />
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="3b473d8d-fa38-4565-9874-d7bc0d711767">
-      <console name="Connection" type="STANDARD" schema="mydbtest" session="Main">select *from users;</console>
+      <console name="Connection" type="STANDARD" schema="mydbtest" session="Main"><![CDATA[select *from users;]]></console>
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">

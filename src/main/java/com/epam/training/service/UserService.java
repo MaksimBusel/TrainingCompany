@@ -29,12 +29,22 @@ public class UserService {
     }
 
 
-    public List<User> showStudents() throws ServiceException {
+    public List<User> showCourseStudents(String courseId) throws ServiceException {
         try(DaoHelper helper = daoHelperFactory.create()){
             UserDaoImpl dao = helper.createUserDao();
-            return null;
-        } catch (SQLException e){
+            return dao.findCourseStudents(courseId);
+        } catch (SQLException | DaoException e){
             throw new ServiceException(e);
         }
+    }
+
+    public List<User> showTeachers() throws ServiceException {
+        try(DaoHelper helper = daoHelperFactory.create()){
+            UserDaoImpl dao = helper.createUserDao();
+            return dao.getAllTeachers();
+        } catch (SQLException | DaoException e){
+            throw new ServiceException(e);
+        }
+
     }
 }

@@ -3,6 +3,7 @@ package com.epam.training.service;
 import com.epam.training.dao.impl.CourseDaoImpl;
 import com.epam.training.dao.DaoHelper;
 import com.epam.training.dao.DaoHelperFactory;
+import com.epam.training.dto.CourseDto;
 import com.epam.training.entity.Course;
 import com.epam.training.exception.DaoException;
 import com.epam.training.exception.ServiceException;
@@ -25,15 +26,6 @@ public class CoursesService {
         }
     }
 
-    public List<Course> showCourses() throws ServiceException {
-        try(DaoHelper helper = daoHelperFactory.create()){
-            CourseDaoImpl dao = helper.createCourseDao();
-            return dao.getAll();
-        } catch (DaoException | SQLException e) {
-            throw new ServiceException(e);
-        }
-    }
-
     public void editCourse(String courseId, String teacherId, String courseName, String description, String dateFrom, String dateTo) throws ServiceException {
         try(DaoHelper helper = daoHelperFactory.create()){
             CourseDaoImpl dao = helper.createCourseDao();
@@ -47,6 +39,24 @@ public class CoursesService {
         try(DaoHelper helper = daoHelperFactory.create()){
             CourseDaoImpl dao = helper.createCourseDao();
             dao.save(teacherId, name, description, dateFrom, dateTo);
+        } catch (DaoException | SQLException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    public List<Course> showTeacherCourses(long teacherId) throws ServiceException {
+        try(DaoHelper helper = daoHelperFactory.create()){
+            CourseDaoImpl dao = helper.createCourseDao();
+            return dao.findTeacherCourses(teacherId);
+        } catch (DaoException | SQLException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    public void lockCourse(String courseId) throws ServiceException {
+        try(DaoHelper helper = daoHelperFactory.create()){
+            CourseDaoImpl dao = helper.createCourseDao();
+            dao.removeById(Long.valueOf(courseId));
         } catch (DaoException | SQLException e) {
             throw new ServiceException(e);
         }

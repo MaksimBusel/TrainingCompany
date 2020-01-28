@@ -3,6 +3,7 @@ package com.epam.training.service;
 import com.epam.training.dao.DaoHelper;
 import com.epam.training.dao.DaoHelperFactory;
 import com.epam.training.dao.impl.StudentCourseDaoImpl;
+import com.epam.training.dto.CourseDto;
 import com.epam.training.entity.Course;
 import com.epam.training.exception.DaoException;
 import com.epam.training.exception.ServiceException;
@@ -17,7 +18,7 @@ public class StudentCourseService {
         this.daoHelperFactory = daoHelperFactory;
     }
 
-    public List<Course> showMyCourses(long id) throws ServiceException {
+    public List<CourseDto> showMyCourses(long id) throws ServiceException {
         try (DaoHelper helper = daoHelperFactory.create()) {
             StudentCourseDaoImpl dao = helper.createStudentCourseDao();
             return dao.getCoursesById(id);

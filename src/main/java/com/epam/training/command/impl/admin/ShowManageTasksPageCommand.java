@@ -2,27 +2,29 @@ package com.epam.training.command.impl.admin;
 
 import com.epam.training.command.Command;
 import com.epam.training.command.CommandResult;
-import com.epam.training.command.CommandType;
-import com.epam.training.command.RedirectUrlCreator;
+import com.epam.training.constant.PagesConstant;
+import com.epam.training.entity.Task;
 import com.epam.training.exception.ServiceException;
 import com.epam.training.service.TaskService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
-public class DeleteTaskCommand implements Command {
+public class ShowManageTasksPageCommand implements Command {
     private TaskService service;
 
-    public DeleteTaskCommand(TaskService service) {
+    public ShowManageTasksPageCommand(TaskService service) {
         this.service = service;
     }
 
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
-        String taskId = request.getParameter("task_id");
-        boolean result = service.deleteTask(taskId);
-        request.setAttribute("remove", result);
+        String courseId = request.getParameter("course_id");
+        List<Task> tasks = service.showTasksCourse(courseId);
+        request.setAttribute("tasks",tasks);
+        request.setAttribute("courseId", courseId);
 
-        return CommandResult.redirect(RedirectUrlCreator.create(CommandType.SHOW_COURSE_TASKS));
+        return CommandResult.forward(PagesConstant.MANAGE_TASKS);
     }
 }

@@ -2,6 +2,7 @@ package com.epam.training.command.impl.admin;
 
 import com.epam.training.command.Command;
 import com.epam.training.command.CommandResult;
+import com.epam.training.constant.PagesConstant;
 import com.epam.training.entity.User;
 import com.epam.training.exception.ServiceException;
 import com.epam.training.service.UserService;
@@ -10,18 +11,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
-public class ShowStudentsCommand implements Command {
+public class ShowAddCoursePageCommand implements Command {
     private UserService service;
 
-    public ShowStudentsCommand(UserService service) {
+    public ShowAddCoursePageCommand(UserService service) {
         this.service = service;
     }
 
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
-        List<User> students = service.showStudents();
-        request.setAttribute("students", students);
+        List<User> teachers = service.showTeachers();
+        request.setAttribute("teachers", teachers);
 
-        return CommandResult.forward("");
+        return CommandResult.forward(PagesConstant.ADD_COURSE);
     }
 }
