@@ -44,11 +44,12 @@ public class CourseDaoImpl extends AbstractDao<Course> implements CourseDao {
        executeUpdate(LOCK_BY_ID, id);
     }
 
-    public void save(String teacherId, String name, String description, String dateFrom, String dateTo) throws DaoException {
+    public void save(long teacherId, String name, String description, String dateFrom, String dateTo) throws DaoException {
         executeUpdate(ADD_COURSE, teacherId, name, description, dateFrom, dateTo);
     }
 
-    public void updateCourseById(String teacherId, String courseName, String description, String dateFrom, String dateTo, String courseId) throws DaoException {
+    public void updateCourseById(long teacherId, String courseName, String description, String dateFrom, String dateTo,
+                                 long courseId) throws DaoException {
         executeUpdate(EDIT_COURSE_BY_ID, teacherId, courseName, description, dateFrom, dateTo, courseId);
     }
 

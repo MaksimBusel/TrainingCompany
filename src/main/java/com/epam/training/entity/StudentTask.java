@@ -7,15 +7,19 @@ public class StudentTask implements Identifable, Serializable {
     public static final String STUDENT_TASK_ID = "student_task_id";
     public static final String MARK = "mark";
     public static final String FEEDBACK = "feedback";
+    public static final String FILE_PATH = "file_path";
     public static final String TABLE = "student_tasks";
 
     private Task task;
     private long studentTaskId;
     private Integer mark;
     private String feedback;
+    private String filePath;
 
-    public StudentTask(long id, long studentTaskId, String name, String dateFrom, String dateTo, Integer mark, String feedback) {
+    public StudentTask(long id, long studentTaskId, String name, String dateFrom, String dateTo, Integer mark,
+                       String feedback, String filePath) {
         task = new Task(id, name, dateFrom, dateTo);
+        this.filePath = filePath;
         this.studentTaskId=studentTaskId;
         this.mark = mark;
         this.feedback = feedback;
@@ -53,6 +57,14 @@ public class StudentTask implements Identifable, Serializable {
         return studentTaskId;
     }
 
+    public String getFilePath() {
+        return filePath;
+    }
+
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
+    }
+
     @Override
     public long getId() {
         return task.getId();
@@ -77,6 +89,6 @@ public class StudentTask implements Identifable, Serializable {
 
     @Override
     public String toString() {
-        return task.toString() + "mark=" + mark + ", feedback='" + feedback  + '}';
+        return task.toString() + "mark=" + mark + ", feedback='" + feedback  + ", filePath="+filePath+'}';
     }
 }

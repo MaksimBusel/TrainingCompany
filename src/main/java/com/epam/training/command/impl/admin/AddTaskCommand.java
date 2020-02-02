@@ -4,7 +4,9 @@ import com.epam.training.command.Command;
 import com.epam.training.command.CommandResult;
 import com.epam.training.command.CommandType;
 import com.epam.training.RedirectUrlCreator;
+import com.epam.training.entity.StudentTask;
 import com.epam.training.exception.ServiceException;
+import com.epam.training.service.StudentTaskService;
 import com.epam.training.service.TaskService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,6 +16,7 @@ public class AddTaskCommand implements Command {
     private static final String COURSE_ID_PARAMETER="&course_id=";
 
     private TaskService service;
+    StudentTaskService studentTaskService;
 
     public AddTaskCommand(TaskService service) {
         this.service = service;
@@ -21,12 +24,15 @@ public class AddTaskCommand implements Command {
 
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
-        String courseId = request.getParameter("course_id");
+        String id = request.getParameter("course_id");
+        long courseId = Long.valueOf(id);
         String name = request.getParameter("task_name");
-        String dateFrom = request.getParameter("date_from");
-        String dateTo = request.getParameter("date_to");
-        service.addTask(courseId, name, dateFrom, dateTo);
-
+        String dateFrom = request.getParameter("date_from"); //sjfef
+        String dateTo = request.getParameter("date_to");//sejsfhkw
+        int result = service.addTask(courseId, name, dateFrom, dateTo);
+        if(result>0){
+            studentTaskService.add(courseId);
+        }
         return CommandResult.redirect(RedirectUrlCreator.create(CommandType.SHOW_MANAGE_TASKS_PAGE)+COURSE_ID_PARAMETER +courseId);
     }
 }

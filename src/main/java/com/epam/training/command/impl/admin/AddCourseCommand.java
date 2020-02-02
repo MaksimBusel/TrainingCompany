@@ -20,11 +20,12 @@ public class AddCourseCommand implements Command {
 
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
-        String teacherId = request.getParameter("teacher");
+        String teacher = request.getParameter("teacher");
+        long teacherId = Long.valueOf(teacher);
         String name = request.getParameter("course");
         String description = request.getParameter("description");
-        String dateFrom = request.getParameter("dateFrom");
-        String dateTo = request.getParameter("dateTo");
+        String dateFrom = request.getParameter("dateFrom"); //изменить на дату
+        String dateTo = request.getParameter("dateTo"); //изменить на дату
         service.addCourse(teacherId, name, description, dateFrom, dateTo);
 
         return CommandResult.redirect(RedirectUrlCreator.create(CommandType.SHOW_MAIN_PAGE));

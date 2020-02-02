@@ -26,7 +26,7 @@ public class CoursesService {
         }
     }
 
-    public void editCourse(String courseId, String teacherId, String courseName, String description, String dateFrom, String dateTo) throws ServiceException {
+    public void editCourse(long courseId, long teacherId, String courseName, String description, String dateFrom, String dateTo) throws ServiceException {
         try(DaoHelper helper = daoHelperFactory.create()){
             CourseDaoImpl dao = helper.createCourseDao();
             dao.updateCourseById(teacherId, courseName, description, dateFrom, dateTo, courseId);
@@ -35,7 +35,7 @@ public class CoursesService {
         }
     }
 
-    public void addCourse(String teacherId, String name, String description, String dateFrom, String dateTo) throws ServiceException {
+    public void addCourse(long teacherId, String name, String description, String dateFrom, String dateTo) throws ServiceException {
         try(DaoHelper helper = daoHelperFactory.create()){
             CourseDaoImpl dao = helper.createCourseDao();
             dao.save(teacherId, name, description, dateFrom, dateTo);
@@ -53,10 +53,10 @@ public class CoursesService {
         }
     }
 
-    public void lockCourse(String courseId) throws ServiceException {
+    public void lockCourse(long courseId) throws ServiceException {
         try(DaoHelper helper = daoHelperFactory.create()){
             CourseDaoImpl dao = helper.createCourseDao();
-            dao.removeById(Long.valueOf(courseId));
+            dao.removeById(courseId);
         } catch (DaoException | SQLException e) {
             throw new ServiceException(e);
         }

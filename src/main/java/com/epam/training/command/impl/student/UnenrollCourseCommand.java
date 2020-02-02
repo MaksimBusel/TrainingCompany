@@ -24,7 +24,8 @@ public class UnenrollCourseCommand implements Command {
         HttpSession session = request.getSession(false);
         User user =(User) session.getAttribute("user");
         long userId = user.getId();
-        String courseId = request.getParameter("course_id");
+        String course = request.getParameter("course_id");
+        long courseId= Long.valueOf(course);
         service.unenroll(userId, courseId);
 
         return CommandResult.redirect(RedirectUrlCreator.create(CommandType.SHOW_MY_COURSES));

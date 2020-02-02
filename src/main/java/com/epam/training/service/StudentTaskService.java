@@ -8,40 +8,43 @@ import com.epam.training.exception.DaoException;
 import com.epam.training.exception.ServiceException;
 
 import javax.servlet.http.Part;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 
 public class StudentTaskService {
     DaoHelperFactory daoHelperFactory;
+    private static final String SAVE_DIRECTORY = "D:/java/Training company/src/main/students/tasks/";
 
     public StudentTaskService(DaoHelperFactory daoHelperFactory) {
-        this.daoHelperFactory=daoHelperFactory;
+        this.daoHelperFactory = daoHelperFactory;
     }
 
-    public List<StudentTask> showMyMarks(long userId, String courseId) throws ServiceException {
-        try(DaoHelper helper = daoHelperFactory.create()){
+    public List<StudentTask> showMyMarks(long userId, long courseId) throws ServiceException {
+        try (DaoHelper helper = daoHelperFactory.create()) {
             StudentTaskDaoImpl dao = helper.createStudentTaskDao();
-            return dao.getMyMarks(userId, courseId);
+            return dao.findMyMarks(userId, courseId);
         } catch (DaoException | SQLException e) {
             throw new ServiceException(e);
         }
     }
 
-    public void estimateTask(String taskId, String mark, String feedback) throws ServiceException {
-        try(DaoHelper helper = daoHelperFactory.create()){
+    public void estimateTask(long taskId, Integer mark, String feedback) throws ServiceException {
+        try (DaoHelper helper = daoHelperFactory.create()) {
             StudentTaskDaoImpl dao = helper.createStudentTaskDao();
-            dao.updateMarkAndFeedbackById(taskId, mark, feedback);
+            if (mark >= 0 && mark <= 10) {
+                dao.updateMarkAndFeedbackById(taskId, mark, feedback);
+            } else {
+                throw new IllegalArgumentException(); //заменить на свое исключение
+            }
         } catch (DaoException | SQLException e) {
             throw new ServiceException(e);
         }
     }
 
-    public List<StudentTask> showStudentTask(String studentId, String courseId) throws ServiceException {
-        try(DaoHelper helper = daoHelperFactory.create()){
+    public List<StudentTask> showStudentTask(long studentId, long courseId) throws ServiceException {
+        try (DaoHelper helper = daoHelperFactory.create()) {
             StudentTaskDaoImpl dao = helper.createStudentTaskDao();
             return dao.findStudentTask(studentId, courseId);
         } catch (DaoException | SQLException e) {
@@ -49,44 +52,58 @@ public class StudentTaskService {
         }
     }
 
-    public void uploadStudentTask(Part studentTask, String taskId, long userId) throws ServiceException, IOException {
-        try(DaoHelper helper = daoHelperFactory.create()){
-
-            System.out.println("начало сервиса");
-
+    public String downloadStudentTask(long studentTaskId) throws ServiceException {
+        try (DaoHelper helper = daoHelperFactory.create()) {
             StudentTaskDaoImpl dao = helper.createStudentTaskDao();
-            if(studentTask!=null){
-                System.out.println(studentTask.getName());
+            Optional<StudentTask> studentTask = dao.findById(studentTaskId);
+            if (studentTask.isPresent()) {
+                String filePath = studentTask.get().getFilePath();
+                return filePath;
             }
-            InputStream inputStream = studentTask.getInputStream();
-            System.out.println(inputStream);
-        } catch (SQLException e) {
+        } catch (SQLException | DaoException e) {
+            throw new ServiceException(e);
+        }
+        return null;
+    }
+
+    public void uploadStudentTask(Part studentTask, long taskId, long userId, long courseId) throws ServiceException {
+        try (DaoHelper helper = daoHelperFactory.create()) {
+            StudentTaskDaoImpl dao = helper.createStudentTaskDao();
+            String pathToFile = saveFile(studentTask);
+            dao.addStudentTask(pathToFile, taskId, userId, courseId);
+        } catch (SQLException | DaoException e) {
             throw new ServiceException(e);
         }
     }
 
-//    private String saveFileOn(Part studentTask) throws IOException {
-//        InputStream inputStream = studentTask.getInputStream();
-//        String pathToFile = "/src/main/students/tasks/" + extractFileName(studentTask);
-//        FileOutputStream outputStream = new FileOutputStream(pathToFile);
-//
-//        int time = 0;
-//        while ((time=inputStream.read())!=-1){
-//
-//        }
-//    }
+    private String saveFile(Part studentTask) {
+        String fileName = getFileName(studentTask);
+        String pathToFile = SAVE_DIRECTORY + fileName;
+        try (InputStream fileContent = studentTask.getInputStream();
+             FileOutputStream outputStream = new FileOutputStream(new File(pathToFile))) {
+            int read = 0;
+            final byte[] bytes = new byte[1024];
+            while ((read = fileContent.read(bytes)) != -1) {
+                outputStream.write(bytes, 0, read);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();//логировать
+        }
+        return pathToFile;
+    }
 
-//    private String extractFileName(Part studentTask){
-//        String contentDisposition = studentTask.getHeader("content-disposition");
-//        String[] items = contentDisposition.split(";");
-//        for (String time : items) {
-//            System.out.println(time);
-//            if (time.trim().startsWith("filename")) {
-//                String clientFileName = time.substring(time.indexOf("=") + 2, time.length() - 1);
-//                clientFileName = clientFileName.replace("\\", "/");
-//                int i = clientFileName.lastIndexOf('/');
-//                return clientFileName.substring(i + 1);
-//            }
-//        }
-//    }
+    private String getFileName(Part studentTask) {
+        final String partHeader = studentTask.getHeader("content-disposition");
+        for (String content : studentTask.getHeader("content-disposition").split(";")) {
+            if (content.trim().startsWith("filename")) {
+                return content.substring(
+                        content.indexOf('=') + 1).trim().replace("\"", "");
+            }
+        }
+        return null;
+    }
+
+    public void add(long courseId) {
+
+    }
 }

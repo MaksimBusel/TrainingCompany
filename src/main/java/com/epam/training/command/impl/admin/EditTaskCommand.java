@@ -21,8 +21,10 @@ public class EditTaskCommand implements Command {
 
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
-        String taskId = request.getParameter("task_id");
-        String courseId = request.getParameter("course_id");
+        String task = request.getParameter("task_id");
+        long taskId = Long.valueOf(task);
+        String course = request.getParameter("course_id");
+        long courseId = Long.valueOf(course);
         String name = request.getParameter("name");
         String dateFrom = request.getParameter("date_from");
         String dateTo = request.getParameter("date_to");

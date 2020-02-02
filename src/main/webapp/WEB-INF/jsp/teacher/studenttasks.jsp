@@ -3,6 +3,9 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ include file="/WEB-INF/jsp/common/header.jsp" %>
 
+<fmt:setLocale value="${language}"/>
+<fmt:setBundle basename="interface"/>
+
 <html>
 <head>
 	<meta charset= "UTF-8"/>
@@ -16,18 +19,18 @@
 <section class="section">
 	<div class="container">
 		<div class="section_header">
-			<h2 class="section_title">${student_name}'s tasks</h2>
+			<h2 class="section_title">${student_name}'s <fmt:message key="task.tasks"/></h2>
 		</div>
 	</div>
 </section>
 
 <table>
 	<tr>
-		<th>Task</th>
-		<th>Date from</th>
-		<th>Date to</th>
-		<th>Mark</th>
-		<th>Feedback</th>
+		<th><fmt:message key="table.task"/></th>
+		<th><fmt:message key="table.datefrom"/></th>
+		<th><fmt:message key="table.deadline"/></th>
+		<th><fmt:message key="table.mark"/></th>
+		<th><fmt:message key="table.feedback"/></th>
 		<th></th>
 	</tr>
 
@@ -54,17 +57,24 @@
 			</select>  /10
 		</td>
 		<td>
-			<textarea name="feedback" cols="90" rows="3">${task.feedback}</textarea>
+			<textarea name="feedback" cols="80" rows="3">${task.feedback}</textarea>
 		</td>
 		<td>
 			<c:if test="${user.role == 'TEACHER'}">	
-				input type="hidden" name="task_id" value="${task.id}">
+				<input type="hidden" name="task_id" value="${task.id}">
 				<input type="hidden" name="student_task_id" value="${task.studentTaskId}">
 				<input type="hidden" name="command" value="estimateTask">
-				<input type="submit" value="Estimate"/>
+				<input type="submit" value="<fmt:message key="button.estimate"/>"/>
+			</form><br/><br/>
+			<c:if test="${task.filePath != 'null'}">
+				<form action="controller" method= "post">
+					<input type="hidden" name="student_task_id" value="${task.studentTaskId}">
+					<input type="hidden" name="command" value="downloadStudentTask">
+					<input type="submit" value="<fmt:message key="button.download"/>"/>
+				</form>
+			</c:if>
 			</c:if>
 		</td>
-		</form>
 	</tr>
     </c:forEach>
 </table>

@@ -25,6 +25,6 @@ public class CommandType {
     public static final String LOCK_COURSE = "lockCourse";
     public static final String SHOW_COURSE_STUDENTS = "showCourseStudents";
     public static final String SHOW_STUDENT_TASKS = "showStudentTasks";
-
     public final static String UPLOAD_STUDENT_TASK = "uploadStudentTask";
+    public final static String DOWNLOAD_STUDENT_TASK = "downloadStudentTask";
 }

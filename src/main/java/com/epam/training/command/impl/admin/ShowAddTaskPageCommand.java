@@ -12,7 +12,8 @@ public class ShowAddTaskPageCommand implements Command {
 
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
-        String courseId = request.getParameter("course_id");
+        String course = request.getParameter("course_id");
+        long courseId= Long.valueOf(course);
         request.setAttribute("courseId", courseId);
 
         return CommandResult.forward(PagesConstant.ADD_TASK);

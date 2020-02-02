@@ -19,12 +19,14 @@ public class EditCourseCommand implements Command {
 
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
-        String courseId = request.getParameter("course_id");
+        String course = request.getParameter("course_id");
+        long courseId = Long.valueOf(course);
         String name = request.getParameter("course_name");
         String description = request.getParameter("description");
         String dateFrom = request.getParameter("date_from");
         String dateTo = request.getParameter("date_to");
-        String teacherId = request.getParameter("teacher");
+        String teacher = request.getParameter("teacher");
+        long teacherId = Long.valueOf(teacher);
         service.editCourse(courseId, teacherId, name, description, dateFrom, dateTo);
 
         return CommandResult.redirect(RedirectUrlCreator.create(CommandType.SHOW_EDIT_COURSE_PAGE));

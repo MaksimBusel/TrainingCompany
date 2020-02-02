@@ -50,11 +50,11 @@ public class StudentCourseDaoImpl extends AbstractDao implements StudentCourseDa
        return executeQuery(coursesInfo + WHERE_COURSES_ID_EQUALS_STUDENT_ID, new CourseDtoRowMapper(), id);
     }
     
-    public void enrollStudentInCourse(long userId, String courseId) throws DaoException {
+    public void enrollStudentInCourse(long userId, long courseId) throws DaoException {
         executeUpdate(ENROLL_STUDENT_IN_COURSE, userId, courseId);
     }
 
-    public void unenrollStudentFromCourse(long userId, String courseId) throws DaoException {
+    public void unenrollStudentFromCourse(long userId, long courseId) throws DaoException {
         executeUpdate(REMOVE_STUDENT_FROM_COURSE, userId, courseId);
     }
 }

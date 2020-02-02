@@ -1,7 +1,10 @@
-<%@page contentType="text/html;charset=utf-8"%>
+<%@page contentType="text/html;charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ include file="/WEB-INF/jsp/common/header.jsp" %>
+
+<fmt:setLocale value="${language}"/>
+<fmt:setBundle basename="interface"/>
 
 <html>
 <head>
@@ -16,16 +19,16 @@
 <section class="section">
 	<div class="container">
 		<div class="section_header">
-			<h2 class="section_title">Manage tasks</h2>
+			<h2 class="section_title"><fmt:message key="button.managetasks"/></h2>
 		</div>
 	</div>
 </section>
 
 <table>
 	<tr>
-		<th>Task</th>
-		<th>Start Date</th>
-		<th>Deadline</th>
+		<th><fmt:message key="table.task"/></th>
+		<th><fmt:message key="table.datefrom"/></th>
+		<th><fmt:message key="table.deadline"/></th>
 		<th class="column_button"></th>
 	</tr>
 
@@ -41,7 +44,7 @@
 				<input type="hidden" name="course_id" value="${courseId}">
 				<input type="hidden" name="task_id" value="${task.id}">
 				<input type="hidden" name="command" value="editTask">
-				<input type="submit" value="Edit"/>
+				<input type="submit" value="<fmt:message key="button.edit"/>"/>
 			</form>
 			</div>
 			<div>
@@ -49,7 +52,7 @@
 				<input type="hidden" name="task_id" value="${task.id}">
 				<input type="hidden" name="course_id" value="${courseId}">
 				<input type="hidden" name="command" value="lockTask">
-				<input type="submit" value="Delete"/>
+				<input type="submit" value="<fmt:message key="button.delete"/>"/>
 			</form>
 			</div>
 		</td>
@@ -61,7 +64,7 @@
 		<form action="controller" method= "post">
 			<input type="hidden" name="course_id" value="${courseId}">
 			<input type="hidden" name="command" value="showAddTaskPage">
-			<input type="submit" value="Add task"/>
+			<input type="submit" value="<fmt:message key="button.addtask"/>"/>
 		</form>
 	</div>
 	

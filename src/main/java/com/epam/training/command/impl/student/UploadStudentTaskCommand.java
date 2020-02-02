@@ -9,14 +9,12 @@ import com.epam.training.entity.User;
 import com.epam.training.exception.ServiceException;
 import com.epam.training.service.StudentTaskService;
 
-import javax.mail.Session;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 import java.io.IOException;
-import java.io.InputStream;
 
 public class UploadStudentTaskCommand implements Command {
     StudentTaskService service;
@@ -28,20 +26,19 @@ public class UploadStudentTaskCommand implements Command {
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         try {
-            System.out.println("начало команды");
-
             Part studentTask = request.getPart("student_task");
-            String taskId = request.getParameter("task_id");
+            String task = request.getParameter("task_id");
+            long taskId= Long.valueOf(task);
             HttpSession session = request.getSession();
             User student = (User) session.getAttribute("user");
             long userId = student.getId();
-            service.uploadStudentTask(studentTask, taskId, userId);
+            String course = request.getParameter("course_id");
+            long courseId = Long.valueOf(course);
+            service.uploadStudentTask(studentTask, taskId, userId, courseId);
         } catch (IOException | ServletException e) {
             throw new ServiceException(e);
         }
 
-        System.out.println("конец команды");
-
-        return CommandResult.redirect(RedirectUrlCreator.create(CommandType.SHOW_MAIN_PAGE));
+        return CommandResult.redirect(RedirectUrlCreator.create(CommandType.SHOW_MY_COURSES));
     }
 }

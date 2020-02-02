@@ -3,6 +3,9 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ include file="/WEB-INF/jsp/common/header.jsp" %>
 
+<fmt:setLocale value="${language}"/>
+<fmt:setBundle basename="interface"/>
+
 <html>
 <head>
 	<meta charset= "UTF-8"/>
@@ -16,18 +19,18 @@
 <section class="section">
 	<div class="container">
 		<div class="section_header">
-			<h2 class="section_title">Marks</h2>
+			<h2 class="section_title"><fmt:message key="task.marks"/></h2>
 		</div>
 	</div>
 </section>
 
 <table>
 	<tr>
-		<th>Task</th>
-		<th>Start Date</th>
-		<th>Deadline</th>
-		<th>Mark</th>
-		<th>Feedback</th>
+		<th><fmt:message key="table.task"/></th>
+		<th><fmt:message key="table.datefrom"/></th>
+		<th><fmt:message key="table.deadline"/></th>
+		<th><fmt:message key="table.mark"/></th>
+		<th><fmt:message key="table.feedback"/></th>
 		<th></th>
 	</tr>
 
@@ -38,8 +41,19 @@
 		<td><c:out value="${task.dateTo}"/></td>
 		<td><c:out value="${task.mark}"/>/10</td>
 		<td><c:out value="${task.feedback}"/></td>
-		<td></td>
-		
+		<c:if test="${task.filePath != 'null'}">
+		<td><fmt:message key="message.uploadedtask"/></td>
+		</c:if>
+		<c:if test="${task.filePath == 'null'}">	
+		<td>
+			<form method="post" action="controller" enctype="multipart/form-data">
+				<input type="file" name="student_task"/>
+				<input type="hidden" name="task_id" value="${task.id}"/>
+				<input type="hidden" name="command" value="uploadStudentTask"/>
+				<input type="submit" value="<fmt:message key="button.upload"/>"/>
+			</form>
+		</td>
+		</c:if>
 	</tr>
     </c:forEach>
 </table>

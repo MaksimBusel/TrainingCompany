@@ -21,9 +21,11 @@ public class EstimateTaskCommand implements Command {
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         String mark = request.getParameter("mark");
+        Integer studentMark = Integer.valueOf(mark);
         String feedback = request.getParameter("feedback");
-        String studentTaskId =  request.getParameter("student_task_id");
-        service.estimateTask(studentTaskId, mark, feedback);
+        String studentTask =  request.getParameter("student_task_id");
+        long studentTaskId= Long.valueOf(studentTask);
+        service.estimateTask(studentTaskId, studentMark, feedback);
         String taskId =  request.getParameter("task_id");
 
         return CommandResult.redirect(RedirectUrlCreator.create(CommandType.SHOW_STUDENTS_HAVE_TASK)+TASK_ID_PARAMETER+taskId);

@@ -16,14 +16,14 @@
 <section class="section">
 	<div class="container">
 		<div class="section_header">
-			<h2 class="section_title">Students</h2>
+			<h2 class="section_title"><fmt:message key="student.students"/></h2>
 		</div>
 	</div>
 </section>
 
 <table>
 	<tr>
-		<th>Student</th>
+		<th><fmt:message key="student.student"/></th>
 		<th></th>
 	</tr>
 

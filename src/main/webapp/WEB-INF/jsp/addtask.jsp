@@ -16,18 +16,18 @@
 	<section class="section">
 		<div class="container">
 			<div class="section_header">
-				<h2 class="section_title">Add Task</h2>
+				<h2 class="section_title"><fmt:message key="button.addtask"/></h2>
 			</div>
 		</div>
 	</section>
 
 	<table>
 		<tr>
-		<th>Task</th>
-		<th>Start Date</th>
-		<th>Deadline</th>
-		<th></th>
-	</tr>
+			<th><fmt:message key="table.task"/></th>
+			<th><fmt:message key="table.datefrom"/></th>
+			<th><fmt:message key="table.deadline"/></th>
+			<th></th>
+		</tr>
 
 		<tr>
 		<form action="controller" method= "post">
@@ -43,7 +43,7 @@
 			<td class="button">
 				<input type="hidden" name="course_id" value="${courseId}">
 				<input type="hidden" name="command" value="addTask">
-				<input type="submit" value="Add"/>
+				<input type="submit" value="<fmt:message key="button.add"/>"/>
 			</td>
 		</form>
 		</tr>

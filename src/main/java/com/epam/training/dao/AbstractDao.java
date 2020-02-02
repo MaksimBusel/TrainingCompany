@@ -33,10 +33,10 @@ public abstract class AbstractDao<T extends Identifable> implements Dao<T> {
         return entities;
     }
 
-    protected void executeUpdate(String query, Object... params) throws DaoException{
+    protected int executeUpdate(String query, Object... params) throws DaoException{
         try(PreparedStatement statement = createStatement(query, params)){
-            System.out.println(statement);
-            statement.executeUpdate();
+            int result = statement.executeUpdate();
+            return result;
         } catch (SQLException e) {
             throw new DaoException(e);
         }

@@ -3,6 +3,9 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ include file="/WEB-INF/jsp/common/header.jsp" %>
 
+<fmt:setLocale value="${language}"/>
+<fmt:setBundle basename="interface"/>
+
 <html>
 <head>
 	<meta charset= "UTF-8"/>
@@ -16,17 +19,17 @@
 <section class="section">
 	<div class="container">
 		<div class="section_header">
-			<h2 class="section_title">My Courses</h2>
+			<h2 class="section_title"><fmt:message key="course.mycourses"/></h2>
 		</div>
 	</div>
 </section>
 
 <table>
 	<tr>
-		<th>Course</th>
-		<th>Description</th>
-		<th>From</th>
-		<th>To</th>
+		<th><fmt:message key="table.course"/></th>
+		<th><fmt:message key="table.description"/></th>
+		<th><fmt:message key="table.datefrom"/></th>
+		<th><fmt:message key="table.deadline"/></th>
 		<th></th>
 	</tr>
 
@@ -40,17 +43,17 @@
 			<form action="controller" method= "get">
 			    <input type="hidden" name="course_id"  value="${course.id}"/>
             	<input type="hidden" name="command" value="showTeacherTasks">
-				<input type="submit" value="Tasks"/>
+				<input type="submit" value="<fmt:message key="task.tasks"/>"/>
 			</form>
 			<form action="controller" method= "get">
 			    <input type="hidden" name="course_id"  value="${course.id}"/>
             	<input type="hidden" name="command" value="showCourseStudents">
-				<input type="submit" value="Students"/>
+				<input type="submit" value="<fmt:message key="student.students"/>"/>
 			</form>
 			<form action="controller" method= "post">
 					<input type="hidden" name="course_id"  value="${course.id}"/>
 					<input type="hidden" name="command" value="manageTasks">
-					<input type="submit" value="Manage tasks"/>
+					<input type="submit" value="<fmt:message key="button.managetasks"/>"/>
 				</form>
 		</td>
 	</tr>

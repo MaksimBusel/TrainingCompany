@@ -25,12 +25,10 @@ public class ShowMyMarksCommand implements Command {
         HttpSession session = request.getSession(false);
         User user =(User) session.getAttribute("user");
         long userId = user.getId();
-        String courseId = request.getParameter("courseId");
+        String course = request.getParameter("courseId");
+        long courseId= Long.valueOf(course);
         List<StudentTask> tasks = service.showMyMarks(userId, courseId);
         request.setAttribute("tasks", tasks);
-
-        System.out.println(courseId);
-        System.out.println(userId);
 
         return CommandResult.forward(PagesConstant.MY_MARKS);
     }

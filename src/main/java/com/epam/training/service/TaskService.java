@@ -17,28 +17,28 @@ public class TaskService {
         this.daoHelperFactory=daoHelperFactory;
     }
 
-    public List<Task> showTasksCourse(String courseId) throws ServiceException {
+    public int addTask(long courseId, String name, String dateFrom, String dateTo) throws ServiceException {
         try(DaoHelper helper = daoHelperFactory.create()){
             TaskDaoImpl dao = helper.createTaskDao();
-            return dao.getTasksByCourseId(courseId);
+            int result = dao.save(courseId, name, dateFrom, dateTo);
+            return result;
         } catch (DaoException | SQLException e) {
             throw new ServiceException(e);
         }
     }
 
-    public void addTask(String courseId, String name, String dateFrom, String dateTo) throws ServiceException {
+    public List<Task> showTasksCourse(long courseId) throws ServiceException {
         try(DaoHelper helper = daoHelperFactory.create()){
             TaskDaoImpl dao = helper.createTaskDao();
-            dao.save(courseId, name, dateFrom, dateTo);
+            return dao.findAllByCourseId(courseId);
         } catch (DaoException | SQLException e) {
             throw new ServiceException(e);
         }
     }
 
-    public boolean lockTask(String id) throws ServiceException {
+    public boolean lockTask(long taskId) throws ServiceException {
         try(DaoHelper helper = daoHelperFactory.create()){
             TaskDaoImpl dao = helper.createTaskDao();
-            Long taskId = Long.valueOf(id);
             dao.removeById(taskId);
             return true;
         } catch (DaoException | SQLException e) {
@@ -46,7 +46,7 @@ public class TaskService {
         }
     }
 
-    public boolean editTask(String courseId, String name, String dateFrom, String dateTo, String taskId) throws ServiceException {
+    public boolean editTask(long courseId, String name, String dateFrom, String dateTo, long taskId) throws ServiceException {
         try(DaoHelper helper = daoHelperFactory.create()){
             TaskDaoImpl dao = helper.createTaskDao();
             dao.updateById(courseId, name, dateFrom, dateTo, taskId);

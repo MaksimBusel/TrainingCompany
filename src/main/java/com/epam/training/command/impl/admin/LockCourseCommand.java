@@ -19,7 +19,8 @@ public class LockCourseCommand implements Command {
 
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
-        String courseId = request.getParameter("course_id");
+        String course = request.getParameter("course_id");
+        long courseId = Long.valueOf(course);
         service.lockCourse(courseId);
 
         return CommandResult.redirect(RedirectUrlCreator.create(CommandType.SHOW_EDIT_COURSE_PAGE));

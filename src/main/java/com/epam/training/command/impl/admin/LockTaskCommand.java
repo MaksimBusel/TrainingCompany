@@ -21,9 +21,11 @@ public class LockTaskCommand implements Command {
 
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
-        String taskId = request.getParameter("task_id");
+        String task = request.getParameter("task_id");
+        long taskId = Long.valueOf(task);
         service.lockTask(taskId);
-        String courseId = request.getParameter("course_id");
+        String course = request.getParameter("course_id");
+        long courseId = Long.valueOf(course);
 
         return CommandResult.redirect(RedirectUrlCreator.create(CommandType.SHOW_MANAGE_TASKS_PAGE)+COURSE_ID_PARAMETER+courseId);
     }

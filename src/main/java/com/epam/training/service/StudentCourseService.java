@@ -27,7 +27,7 @@ public class StudentCourseService {
         }
     }
 
-    public void enroll(long userId, String courseId) throws ServiceException {
+    public void enroll(long userId, long courseId) throws ServiceException {
         try (DaoHelper helper = daoHelperFactory.create()) {
             StudentCourseDaoImpl dao = helper.createStudentCourseDao();
             dao.enrollStudentInCourse(userId, courseId);
@@ -36,7 +36,7 @@ public class StudentCourseService {
         }
     }
 
-    public void unenroll(long userId, String courseId) throws ServiceException {
+    public void unenroll(long userId, long courseId) throws ServiceException {
         try (DaoHelper helper = daoHelperFactory.create()) {
             StudentCourseDaoImpl dao = helper.createStudentCourseDao();
             dao.unenrollStudentFromCourse(userId, courseId);

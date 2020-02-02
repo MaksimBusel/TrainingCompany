@@ -20,7 +20,8 @@ public class ShowTeacherTasksCommand implements Command {
 
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
-        String courseId = request.getParameter("course_id");
+        String course = request.getParameter("course_id");
+        long courseId= Long.valueOf(course);
         List<Task> tasks = service.showTasksCourse(courseId);
         request.setAttribute("tasks",tasks);
         request.setAttribute("courseId", courseId);

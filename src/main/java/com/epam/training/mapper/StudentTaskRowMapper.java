@@ -17,7 +17,8 @@ public class StudentTaskRowMapper implements RowMapper<StudentTask>{
         String dateTo = resultSet.getString(Task.DATE_TO);
         Integer mark = resultSet.getInt(StudentTask.MARK);
         String feedback = resultSet.getString(StudentTask.FEEDBACK);
-        StudentTask studentTask = new StudentTask(id, studentTaskId, name, dateFrom, dateTo, mark, feedback);
+        String filePath = resultSet.getString(StudentTask.FILE_PATH);
+        StudentTask studentTask = new StudentTask(id, studentTaskId, name, dateFrom, dateTo, mark, feedback, filePath);
 
         return studentTask;
     }

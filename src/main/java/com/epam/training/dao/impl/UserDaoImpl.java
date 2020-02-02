@@ -66,7 +66,7 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDao {
         return executeQuery(FIND_TEACHERS, new UserRowMapper());
     }
 
-    public List<User> findCourseStudents(String courseId) throws DaoException {
+    public List<User> findCourseStudents(long courseId) throws DaoException {
         return executeQuery(FIND_COURSE_STUDENTS, new UserRowMapper(), courseId);
     }
 }

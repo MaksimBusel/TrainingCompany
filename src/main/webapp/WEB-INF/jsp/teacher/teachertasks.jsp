@@ -3,6 +3,9 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ include file="/WEB-INF/jsp/common/header.jsp" %>
 
+<fmt:setLocale value="${language}"/>
+<fmt:setBundle basename="interface"/>
+
 <html>
 <head>
 	<meta charset= "UTF-8"/>
@@ -16,16 +19,16 @@
 <section class="section">
 	<div class="container">
 		<div class="section_header">
-			<h2 class="section_title">Tasks</h2>
+			<h2 class="section_title"><fmt:message key="task.tasks"/></h2>
 		</div>
 	</div>
 </section>
 
 <table>
 	<tr>
-		<th>Task</th>
-		<th>Start Date</th>
-		<th>Deadline</th>
+		<th><fmt:message key="table.task"/></th>
+		<th><fmt:message key="table.datefrom"/></th>
+		<th><fmt:message key="table.deadline"/></th>
 		<th></th>
 	</tr>
 

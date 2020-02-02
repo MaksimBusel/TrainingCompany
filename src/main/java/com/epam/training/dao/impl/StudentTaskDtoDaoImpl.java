@@ -39,7 +39,7 @@ public class StudentTaskDtoDaoImpl extends AbstractDao<StudentTaskDto> {
 
     }
 
-    public List<StudentTaskDto> findStudentHaveTaskByTaskId(String taskId) throws DaoException {
+    public List<StudentTaskDto> findStudentHaveTaskByTaskId(long taskId) throws DaoException {
         return executeQuery(FIND_STUDENTS_HAVE_TASK, new StudentTaskDtoRowMapper(), taskId);
     }
 }

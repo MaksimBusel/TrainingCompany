@@ -29,7 +29,7 @@ public class UserService {
     }
 
 
-    public List<User> showCourseStudents(String courseId) throws ServiceException {
+    public List<User> showCourseStudents(long courseId) throws ServiceException {
         try(DaoHelper helper = daoHelperFactory.create()){
             UserDaoImpl dao = helper.createUserDao();
             return dao.findCourseStudents(courseId);

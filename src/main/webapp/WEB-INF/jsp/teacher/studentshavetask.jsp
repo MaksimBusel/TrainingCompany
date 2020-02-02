@@ -3,6 +3,9 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ include file="/WEB-INF/jsp/common/header.jsp" %>
 
+<fmt:setLocale value="${language}"/>
+<fmt:setBundle basename="interface"/>
+
 <html>
 <head>
 	<meta charset= "UTF-8"/>
@@ -16,16 +19,16 @@
 <section class="section">
 	<div class="container">
 		<div class="section_header">
-			<h2 class="section_title">Grades of students who have this task</h2>
+			<h2 class="section_title"><fmt:message key="message.gradesstudents"/></h2>
 		</div>
 	</div>
 </section>
 
 <table>
 	<tr>
-		<th>Student</th>
-		<th>Mark</th>
-		<th>Feedback</th>
+		<th><fmt:message key="student.student"/></th>
+		<th><fmt:message key="table.mark"/></th>
+		<th><fmt:message key="table.feedback"/></th>
 		<th></th>
 	</tr>
 
@@ -56,7 +59,7 @@
 			<input type="hidden" name="task_id" value="${student.taskId}">
 			<input type="hidden" name="student_task_id" value="${student.id}">
 			<input type="hidden" name="command" value="estimateTask">
-			<input type="submit" value="Estimate"/>
+			<input type="submit" value="<fmt:message key="button.estimate"/>"/>
 		</td>
 		</form>
 	</tr>

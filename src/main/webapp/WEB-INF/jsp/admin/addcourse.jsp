@@ -16,18 +16,18 @@
 	<section class="section">
 		<div class="container">
 			<div class="section_header">
-				<h2 class="section_title">Add Course</h2>
+				<h2 class="section_title"><fmt:message key="course.addcourse"/></h2>
 			</div>
 		</div>
 	</section>
 
 	<table>
 		<tr>
-			<th>Course</th>
-			<th>Description</th>
-			<th>From</th>
-			<th>To</th>
-			<th>Teacher</th>
+			<th><fmt:message key="table.course"/></th>
+			<th><fmt:message key="table.description"/></th>
+			<th><fmt:message key="table.datefrom"/></th>
+			<th><fmt:message key="table.deadline"/></th>
+			<th><fmt:message key="table.teacher"/></th>
 			<th></th>
 		</tr>
 
@@ -54,7 +54,7 @@
 			</td>
 			<td class="button">
 					<input type="hidden" name="command" value="addCourse">
-					<input type="submit" value="Add"/>
+					<input type="submit" value="<fmt:message key="button.add"/>"/>
 			</td>
 		</form>
 		</tr>

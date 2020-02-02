@@ -62,9 +62,10 @@ public class CommandFactory {
                 return new ShowCourseStudentsCommand(new UserService(new DaoHelperFactory()));
             case CommandType.SHOW_STUDENT_TASKS:
                 return new StudentTasksCommand(new StudentTaskService(new DaoHelperFactory()));
-
             case CommandType.UPLOAD_STUDENT_TASK:
                 return new UploadStudentTaskCommand(new StudentTaskService(new DaoHelperFactory()));
+            case CommandType.DOWNLOAD_STUDENT_TASK:
+                return new DownloadStudentTaskCommand(new StudentTaskService(new DaoHelperFactory()));
 
             default:
                 throw new IllegalArgumentException("Unknown command" + command);

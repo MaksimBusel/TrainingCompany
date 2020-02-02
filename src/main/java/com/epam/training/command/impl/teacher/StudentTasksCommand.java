@@ -20,8 +20,10 @@ public class StudentTasksCommand implements Command {
 
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
-        String studentId = request.getParameter("student_id");
-        String courseId = request.getParameter("course_id");
+        String student = request.getParameter("student_id");
+        long studentId= Long.valueOf(student);
+        String course = request.getParameter("course_id");
+        long courseId= Long.valueOf(course);
         String studentName = request.getParameter("name");
         List<StudentTask> tasks = service.showStudentTask(studentId, courseId);
         request.setAttribute("tasks", tasks);

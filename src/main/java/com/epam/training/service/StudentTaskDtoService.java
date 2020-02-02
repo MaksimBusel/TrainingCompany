@@ -17,7 +17,7 @@ public class StudentTaskDtoService {
         this.daoHelperFactory=daoHelperFactory;
     }
 
-    public List<StudentTaskDto> showStudentsHaveTask(String taskId) throws ServiceException {
+    public List<StudentTaskDto> showStudentsHaveTask(long taskId) throws ServiceException {
         try(DaoHelper helper = daoHelperFactory.create()){
             StudentTaskDtoDaoImpl dao = helper.createStudentTaskDtoDao();
             return dao.findStudentHaveTaskByTaskId(taskId);

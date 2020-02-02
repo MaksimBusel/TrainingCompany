@@ -3,6 +3,9 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ include file="/WEB-INF/jsp/common/header.jsp" %>
 
+<fmt:setLocale value="${language}"/>
+<fmt:setBundle basename="interface"/>
+
 <html>
 <head>
 	<meta charset= "UTF-8"/>
@@ -16,16 +19,16 @@
 <section class="section">
 	<div class="container">
 		<div class="section_header">
-			<h2 class="section_title">Tasks</h2>
+			<h2 class="section_title"><fmt:message key="task.tasks"/></h2>
 		</div>
 	</div>
 </section>
 
 <table>
 	<tr>
-		<th>Task</th>
-		<th>Start Date</th>
-		<th>Deadline</th>
+		<th><fmt:message key="table.task"/></th>
+		<th><fmt:message key="table.datefrom"/></th>
+		<th><fmt:message key="table.deadline"/></th>
 		<th></th>
 	</tr>
 
@@ -35,11 +38,12 @@
 		<td><c:out value="${task.dateFrom}"/></td>
 		<td><c:out value="${task.dateTo}"/></td>
 		<td>
-			<form action="controller" method= "post" enctype="multipart/form-data">
+			<form method="post" action="controller" enctype="multipart/form-data">
 				<input type="file" name="student_task"/>
-				<input type="hidden" name="task_id"  value="${task.id}"/>
-				<input type="hidden" name="command" value="uploadStudentTask">
-				<input type="submit" value="Upload"/>
+				<input type="hidden" name="task_id" value="${task.id}"/>
+				<input type="hidden" name="course_Id"  value="${courseId}"/>
+				<input type="hidden" name="command" value="uploadStudentTask"/>
+				<input type="submit" value="<fmt:message key="button.upload"/>"/>
 			</form>
 		</td>
 	</tr>
@@ -48,7 +52,7 @@
 	<form action="controller" method= "post">
 		<input type="hidden" name="courseId"  value="${courseId}"/>
         <input type="hidden" name="command" value="showMyMarks">
-		<input type="submit" value="My marks"/>
+		<input type="submit" value="<fmt:message key="task.mymarks"/>"/>
 	</form>
 	
 </div>
