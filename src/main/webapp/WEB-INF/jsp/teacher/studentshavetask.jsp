@@ -60,8 +60,16 @@
 			<input type="hidden" name="student_task_id" value="${student.id}">
 			<input type="hidden" name="command" value="estimateTask">
 			<input type="submit" value="<fmt:message key="button.estimate"/>"/>
+			</form><br/><br/>
+			<c:if test="${student.filePath != 'NULL'}">
+				<form action="controller" method= "post">
+					<input type="hidden" name="student_task_id" value="${student.id}">
+					<input type="hidden" name="command" value="downloadStudentTask">
+					<input type="submit" value="<fmt:message key="button.download"/>"/>
+				</form>
+			</c:if>
 		</td>
-		</form>
+		
 	</tr>
     </c:forEach>
 </table>

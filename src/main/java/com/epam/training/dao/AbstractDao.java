@@ -1,8 +1,8 @@
-package com.epam.training.dao;
+package main.java.com.epam.training.dao;
 
-import com.epam.training.mapper.RowMapper;
-import com.epam.training.entity.Identifable;
-import com.epam.training.exception.DaoException;
+import main.java.com.epam.training.mapper.RowMapper;
+import main.java.com.epam.training.entity.Identifable;
+import main.java.com.epam.training.exception.DaoException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -33,10 +33,9 @@ public abstract class AbstractDao<T extends Identifable> implements Dao<T> {
         return entities;
     }
 
-    protected int executeUpdate(String query, Object... params) throws DaoException{
+    protected void executeUpdate(String query, Object... params) throws DaoException{
         try(PreparedStatement statement = createStatement(query, params)){
-            int result = statement.executeUpdate();
-            return result;
+            statement.executeUpdate();
         } catch (SQLException e) {
             throw new DaoException(e);
         }

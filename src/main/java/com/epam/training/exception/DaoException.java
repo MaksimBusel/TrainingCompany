@@ -1,4 +1,4 @@
-package com.epam.training.exception;
+package main.java.com.epam.training.exception;
 
 import java.sql.SQLException;
 

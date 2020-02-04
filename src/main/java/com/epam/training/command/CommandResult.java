@@ -1,4 +1,4 @@
-package com.epam.training.command;
+package main.java.com.epam.training.command;
 
 public class CommandResult {
 

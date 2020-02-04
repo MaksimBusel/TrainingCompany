@@ -39,11 +39,10 @@
 		<td><c:out value="${task.dateTo}"/></td>
 		<td>
 			<form method="post" action="controller" enctype="multipart/form-data">
-				<input type="file" name="student_task"/>
 				<input type="hidden" name="task_id" value="${task.id}"/>
-				<input type="hidden" name="course_Id"  value="${courseId}"/>
-				<input type="hidden" name="command" value="uploadStudentTask"/>
-				<input type="submit" value="<fmt:message key="button.upload"/>"/>
+				<input type="hidden" name="course_id"  value="${courseId}"/>
+				<input type="hidden" name="command" value="addStudentTask"/>
+				<input type="submit" value="<fmt:message key="button.starttask"/>"/>
 			</form>
 		</td>
 	</tr>

@@ -22,6 +22,7 @@
 				<a class= "nav_link" href="${request.contextPath}controller?command=logout"><fmt:message key="logout.logout"/></a>
 				<a class= "nav_link" href="?sessionLocale=en&command=showMainPage"><fmt:message key="language.en"/></a>
 				<a class= "nav_link" href="?sessionLocale=ru&command=showMainPage"><fmt:message key="language.ru"/></a>
+				<a class= "nav_link" href="?sessionLocale=be&command=showMainPage"><fmt:message key="language.be"/></a>
 			</nav>
 		</div> 
 		<div class="menu">

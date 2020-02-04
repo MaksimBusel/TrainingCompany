@@ -1,34 +1,40 @@
-package com.epam.training.service;
+package main.java.com.epam.training.service;
 
-import com.epam.training.dao.DaoHelper;
-import com.epam.training.dao.DaoHelperFactory;
-import com.epam.training.dao.impl.TaskDaoImpl;
-import com.epam.training.entity.Task;
-import com.epam.training.exception.DaoException;
-import com.epam.training.exception.ServiceException;
+
+
+import main.java.com.epam.training.dao.DaoHelper;
+import main.java.com.epam.training.dao.DaoHelperFactory;
+import main.java.com.epam.training.dao.impl.TaskDaoImpl;
+import main.java.com.epam.training.entity.Task;
+import main.java.com.epam.training.exception.DaoException;
+import main.java.com.epam.training.exception.ServiceException;
 
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.List;
 
 public class TaskService {
     DaoHelperFactory daoHelperFactory;
 
     public TaskService(DaoHelperFactory daoHelperFactory) {
-        this.daoHelperFactory=daoHelperFactory;
+        this.daoHelperFactory = daoHelperFactory;
     }
 
-    public int addTask(long courseId, String name, String dateFrom, String dateTo) throws ServiceException {
-        try(DaoHelper helper = daoHelperFactory.create()){
+    public void addTask(long courseId, String name, LocalDate dateFrom, LocalDate dateTo) throws ServiceException {
+        try (DaoHelper helper = daoHelperFactory.create()) {
             TaskDaoImpl dao = helper.createTaskDao();
-            int result = dao.save(courseId, name, dateFrom, dateTo);
-            return result;
+            if (dateFrom.isBefore(dateTo) && dateFrom.isAfter(LocalDate.now())) {
+                dao.save(courseId, name, dateFrom, dateTo);
+            } else {
+                throw new RuntimeException(); //change
+            }
         } catch (DaoException | SQLException e) {
             throw new ServiceException(e);
         }
     }
 
     public List<Task> showTasksCourse(long courseId) throws ServiceException {
-        try(DaoHelper helper = daoHelperFactory.create()){
+        try (DaoHelper helper = daoHelperFactory.create()) {
             TaskDaoImpl dao = helper.createTaskDao();
             return dao.findAllByCourseId(courseId);
         } catch (DaoException | SQLException e) {
@@ -37,7 +43,7 @@ public class TaskService {
     }
 
     public boolean lockTask(long taskId) throws ServiceException {
-        try(DaoHelper helper = daoHelperFactory.create()){
+        try (DaoHelper helper = daoHelperFactory.create()) {
             TaskDaoImpl dao = helper.createTaskDao();
             dao.removeById(taskId);
             return true;
@@ -46,11 +52,14 @@ public class TaskService {
         }
     }
 
-    public boolean editTask(long courseId, String name, String dateFrom, String dateTo, long taskId) throws ServiceException {
-        try(DaoHelper helper = daoHelperFactory.create()){
+    public void editTask(long courseId, String name, LocalDate dateFrom, LocalDate dateTo, long taskId) throws ServiceException {
+        try (DaoHelper helper = daoHelperFactory.create()) {
             TaskDaoImpl dao = helper.createTaskDao();
-            dao.updateById(courseId, name, dateFrom, dateTo, taskId);
-            return true;
+            if (dateFrom.isBefore(dateTo)) {
+                dao.updateById(courseId, name, dateFrom, dateTo, taskId);
+            } else {
+                throw new RuntimeException(); //change
+            }
         } catch (DaoException | SQLException e) {
             throw new ServiceException(e);
         }

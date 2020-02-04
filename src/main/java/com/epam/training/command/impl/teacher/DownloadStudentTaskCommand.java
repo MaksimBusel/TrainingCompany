@@ -1,19 +1,17 @@
-package com.epam.training.command.impl.teacher;
+package main.java.com.epam.training.command.impl.teacher;
 
-import com.epam.training.command.Command;
-import com.epam.training.command.CommandResult;
-import com.epam.training.constant.PagesConstant;
-import com.epam.training.exception.ServiceException;
-import com.epam.training.service.StudentTaskService;
+import main.java.com.epam.training.command.Command;
+import main.java.com.epam.training.command.CommandResult;
+import main.java.com.epam.training.exception.ServiceException;
+import main.java.com.epam.training.service.StudentTaskService;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.*;
-import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 
 public class DownloadStudentTaskCommand implements Command {
     StudentTaskService service;

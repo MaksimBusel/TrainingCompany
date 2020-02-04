@@ -1,6 +1,6 @@
-package com.epam.training.dto;
+package main.java.com.epam.training.dto;
 
-import com.epam.training.entity.Identifable;
+import main.java.com.epam.training.entity.Identifable;
 
 public class CourseDto implements Identifable {
     public static final String FIRST_NAME = "first_name";

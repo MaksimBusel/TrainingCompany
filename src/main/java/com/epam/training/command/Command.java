@@ -1,6 +1,6 @@
-package com.epam.training.command;
+package main.java.com.epam.training.command;
 
-import com.epam.training.exception.ServiceException;
+import main.java.com.epam.training.exception.ServiceException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 

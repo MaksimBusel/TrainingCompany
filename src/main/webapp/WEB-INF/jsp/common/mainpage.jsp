@@ -10,7 +10,7 @@
 <head>
 	<meta charset= "UTF-8"/>
 	<title>Main page</title>
-	<link href= "css/style.css" rel= "stylesheet"/>
+	<link href= "/css/style.css" rel= "stylesheet"/>
 </head>
 
 <body>

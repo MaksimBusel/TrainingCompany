@@ -1,12 +1,13 @@
-package com.epam.training.dao.impl;
+package main.java.com.epam.training.dao.impl;
 
-import com.epam.training.dao.AbstractDao;
-import com.epam.training.dao.CourseDao;
-import com.epam.training.entity.Course;
-import com.epam.training.exception.DaoException;
-import com.epam.training.mapper.CourseRowMapper;
+import main.java.com.epam.training.dao.AbstractDao;
+import main.java.com.epam.training.dao.CourseDao;
+import main.java.com.epam.training.entity.Course;
+import main.java.com.epam.training.exception.DaoException;
+import main.java.com.epam.training.mapper.CourseRowMapper;
 
 import java.sql.Connection;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -44,11 +45,11 @@ public class CourseDaoImpl extends AbstractDao<Course> implements CourseDao {
        executeUpdate(LOCK_BY_ID, id);
     }
 
-    public void save(long teacherId, String name, String description, String dateFrom, String dateTo) throws DaoException {
+    public void save(long teacherId, String name, String description, LocalDate dateFrom, LocalDate dateTo) throws DaoException {
         executeUpdate(ADD_COURSE, teacherId, name, description, dateFrom, dateTo);
     }
 
-    public void updateCourseById(long teacherId, String courseName, String description, String dateFrom, String dateTo,
+    public void updateCourseById(long teacherId, String courseName, String description, LocalDate dateFrom, LocalDate dateTo,
                                  long courseId) throws DaoException {
         executeUpdate(EDIT_COURSE_BY_ID, teacherId, courseName, description, dateFrom, dateTo, courseId);
     }

@@ -1,6 +1,9 @@
-package com.epam.training.entity;
+package main.java.com.epam.training.entity;
+
+import main.java.com.epam.training.entity.Identifable;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Objects;
 
 public class StudentTask implements Identifable, Serializable {
@@ -41,11 +44,11 @@ public class StudentTask implements Identifable, Serializable {
         this.mark = mark;
     }
 
-    public String getDateFrom() {
+    public LocalDate getDateFrom() {
         return task.getDateFrom();
     }
 
-    public String getDateTo() {
+    public LocalDate getDateTo() {
         return task.getDateTo();
     }
 

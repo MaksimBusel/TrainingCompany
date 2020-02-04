@@ -1,16 +1,16 @@
-package com.epam.training.command.impl.admin;
+package main.java.com.epam.training.command.impl.admin;
 
-import com.epam.training.command.Command;
-import com.epam.training.command.CommandResult;
-import com.epam.training.command.CommandType;
-import com.epam.training.RedirectUrlCreator;
-import com.epam.training.entity.StudentTask;
-import com.epam.training.exception.ServiceException;
-import com.epam.training.service.StudentTaskService;
-import com.epam.training.service.TaskService;
+import main.java.com.epam.training.command.Command;
+import main.java.com.epam.training.command.CommandResult;
+import main.java.com.epam.training.constant.CommandType;
+import main.java.com.epam.training.RedirectUrlCreator;
+import main.java.com.epam.training.exception.ServiceException;
+import main.java.com.epam.training.service.StudentTaskService;
+import main.java.com.epam.training.service.TaskService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.time.LocalDate;
 
 public class AddTaskCommand implements Command {
     private static final String COURSE_ID_PARAMETER="&course_id=";
@@ -27,12 +27,12 @@ public class AddTaskCommand implements Command {
         String id = request.getParameter("course_id");
         long courseId = Long.valueOf(id);
         String name = request.getParameter("task_name");
-        String dateFrom = request.getParameter("date_from"); //sjfef
-        String dateTo = request.getParameter("date_to");//sejsfhkw
-        int result = service.addTask(courseId, name, dateFrom, dateTo);
-        if(result>0){
-            studentTaskService.add(courseId);
-        }
+        String dateFrom = request.getParameter("date_from");
+        String dateTo = request.getParameter("date_to");
+        LocalDate localDateFrom = LocalDate.parse(dateFrom);
+        LocalDate localDateTo = LocalDate.parse(dateTo);
+        service.addTask(courseId, name, localDateFrom, localDateTo);
+
         return CommandResult.redirect(RedirectUrlCreator.create(CommandType.SHOW_MANAGE_TASKS_PAGE)+COURSE_ID_PARAMETER +courseId);
     }
 }

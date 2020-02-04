@@ -1,13 +1,14 @@
-package com.epam.training.dao.impl;
+package main.java.com.epam.training.dao.impl;
 
-import com.epam.training.dao.AbstractDao;
-import com.epam.training.dao.TaskDao;
-import com.epam.training.entity.StudentTask;
-import com.epam.training.entity.Task;
-import com.epam.training.exception.DaoException;
-import com.epam.training.mapper.TaskRowMapper;
+import main.java.com.epam.training.dao.AbstractDao;
+import main.java.com.epam.training.dao.TaskDao;
+import main.java.com.epam.training.entity.StudentTask;
+import main.java.com.epam.training.entity.Task;
+import main.java.com.epam.training.exception.DaoException;
+import main.java.com.epam.training.mapper.TaskRowMapper;
 
 import java.sql.Connection;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -40,8 +41,8 @@ public class TaskDaoImpl extends AbstractDao<Task> implements TaskDao {
 
     }
 
-    public int save(long courseId, String name, String dateFrom, String dateTo) throws DaoException {
-        return executeUpdate(SAVE_TASK, courseId, name, dateFrom, dateTo);
+    public void save(long courseId, String name, LocalDate dateFrom, LocalDate dateTo) throws DaoException {
+        executeUpdate(SAVE_TASK, courseId, name, dateFrom, dateTo);
     }
 
     @Override
@@ -49,7 +50,7 @@ public class TaskDaoImpl extends AbstractDao<Task> implements TaskDao {
         executeUpdate(LOCK_BY_ID, id);
     }
 
-    public void updateById(long courseId, String name, String dateFrom, String dateTo, long taskId) throws DaoException {
+    public void updateById(long courseId, String name, LocalDate dateFrom, LocalDate dateTo, long taskId) throws DaoException {
         executeUpdate(EDIT_TASK_BY_ID,courseId, name, dateFrom, dateTo, taskId);
     }
 

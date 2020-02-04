@@ -1,10 +1,10 @@
-package com.epam.training.dao.impl;
+package main.java.com.epam.training.dao.impl;
 
-import com.epam.training.dao.AbstractDao;
-import com.epam.training.dao.UserDao;
-import com.epam.training.mapper.UserRowMapper;
-import com.epam.training.entity.User;
-import com.epam.training.exception.DaoException;
+import main.java.com.epam.training.dao.AbstractDao;
+import main.java.com.epam.training.dao.UserDao;
+import main.java.com.epam.training.mapper.UserRowMapper;
+import main.java.com.epam.training.entity.User;
+import main.java.com.epam.training.exception.DaoException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class UserDaoImpl extends AbstractDao<User> implements UserDao {
-    private static final String FIND_BY_LOGIN_AND_PASSWORD ="SELECT * FROM users WHERE login = ? AND password = ?";
+    private static final String FIND_BY_LOGIN_AND_PASSWORD ="SELECT * FROM users WHERE login = ? AND password = MD5(?)";
     private static final String FIND_BY_ID ="SELECT * FROM users WHERE user_id = ?";
     private static final String REMOVE_BY_ID ="DELETE FROM users WHERE user_id = ?";
     private static final String FIND_TEACHERS ="SELECT * FROM users WHERE role='teacher'";

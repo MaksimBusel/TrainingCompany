@@ -1,10 +1,10 @@
-package com.epam.training.dao.impl;
+package main.java.com.epam.training.dao.impl;
 
-import com.epam.training.dao.AbstractDao;
-import com.epam.training.dto.StudentTaskDto;
-import com.epam.training.entity.StudentTask;
-import com.epam.training.exception.DaoException;
-import com.epam.training.mapper.StudentTaskDtoRowMapper;
+import main.java.com.epam.training.dao.AbstractDao;
+import main.java.com.epam.training.dto.StudentTaskDto;
+import main.java.com.epam.training.entity.StudentTask;
+import main.java.com.epam.training.exception.DaoException;
+import main.java.com.epam.training.mapper.StudentTaskDtoRowMapper;
 
 import java.sql.Connection;
 import java.util.List;

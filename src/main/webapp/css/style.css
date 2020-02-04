@@ -9,7 +9,7 @@ body {
 	margin: 0;
 	color: black;
 	height: 100%;
-	
+	background: #F1F5FB;;
 }
 
 /* HEADER */
@@ -159,7 +159,8 @@ td:first-child, th:first-child{
 }
 
 td:last-child, th:last-child{
-	background: white;
+	background: #F1F5FB;
+	border: #F1F5FB;
 	text-align: left;
 	min-width: 20px;
 }
@@ -221,11 +222,54 @@ footer{
 
 .row{display: block;}
 
-.
+/*LOGIN*/
 
+.login_container{
+	height: 100%;
+	color: black;
+	background: #C0CAC9;
+}
 
+.login{
+	margin: 0 auto;
+	max-width: 320px;
+	border: 2px solid #000;
+	height: 280px;
+	padding-left: 40px;
+	padding-top: 10px;
+	font-size: 20px;
+	background: white;
+	position: relative;
+	top: 200px;
+}
 
+.lang{
+	padding-left: 20%;
+}
 
+.language{
+	text-transform: uppercase;
+	color: black;
+	padding-right: 3px;
+	font-size:18px;
+	text-decoration: none;
+	position: relative;
+	
+	transition: color .1s ;
+}
+
+.language:hover {
+	color: #005AFF;
+}
+
+/*ERROR*/
+
+.error{
+	text-align: center;
+	font-size: 22px;
+	background: red;
+	height: 30px;
+}
 
 
 

@@ -1,4 +1,4 @@
-package com.epam.training.entity;
+package main.java.com.epam.training.entity;
 
 public interface Identifable {
     long getId();

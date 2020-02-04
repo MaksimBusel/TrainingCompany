@@ -1,9 +1,9 @@
-package com.epam.training.mapper;
+package main.java.com.epam.training.mapper;
 
-import com.epam.training.dto.StudentTaskDto;
-import com.epam.training.entity.StudentTask;
-import com.epam.training.entity.Task;
-import com.epam.training.entity.User;
+import main.java.com.epam.training.dto.StudentTaskDto;
+import main.java.com.epam.training.entity.StudentTask;
+import main.java.com.epam.training.entity.Task;
+import main.java.com.epam.training.entity.User;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -20,7 +20,9 @@ public class StudentTaskDtoRowMapper implements RowMapper<StudentTaskDto> {
         String taskName = resultSet.getString(Task.TASK_NAME);
         Integer mark = resultSet.getInt(StudentTask.MARK);
         String feedback = resultSet.getString(StudentTask.FEEDBACK);
-        StudentTaskDto studentTask = new StudentTaskDto(id, userId, taskId, studentFirstName, studentLastName, taskName, mark, feedback);
+        String filePath = resultSet.getString(StudentTask.FILE_PATH);
+        StudentTaskDto studentTask = new StudentTaskDto(id, userId, taskId, studentFirstName, studentLastName, taskName,
+                mark, feedback, filePath);
 
         return studentTask;
     }

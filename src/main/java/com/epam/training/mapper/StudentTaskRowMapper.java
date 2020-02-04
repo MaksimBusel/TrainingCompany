@@ -1,7 +1,7 @@
-package com.epam.training.mapper;
+package main.java.com.epam.training.mapper;
 
-import com.epam.training.entity.StudentTask;
-import com.epam.training.entity.Task;
+import main.java.com.epam.training.entity.StudentTask;
+import main.java.com.epam.training.entity.Task;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

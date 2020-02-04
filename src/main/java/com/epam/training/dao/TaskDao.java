@@ -1,6 +1,6 @@
-package com.epam.training.dao;
+package main.java.com.epam.training.dao;
 
-import com.epam.training.entity.Task;
+import main.java.com.epam.training.entity.Task;
 
 public interface TaskDao extends Dao<Task> {
 }

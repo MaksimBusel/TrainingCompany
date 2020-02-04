@@ -1,4 +1,4 @@
-package com.epam.training.constant;
+package main.java.com.epam.training.constant;
 
 public class PagesConstant {
     public static final String LOGIN = "/WEB-INF/jsp/common/login.jsp";

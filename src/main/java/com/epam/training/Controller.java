@@ -1,9 +1,9 @@
-package com.epam.training;
+package main.java.com.epam.training;
 
-import com.epam.training.command.Command;
-import com.epam.training.command.CommandResult;
-import com.epam.training.exception.ServiceException;
-import com.epam.training.command.CommandFactory;
+import main.java.com.epam.training.command.Command;
+import main.java.com.epam.training.command.CommandFactory;
+import main.java.com.epam.training.command.CommandResult;
+import main.java.com.epam.training.exception.ServiceException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -39,7 +39,7 @@ public class Controller extends HttpServlet {
     }
 
     private void dispatch(HttpServletRequest request, HttpServletResponse response, CommandResult result) throws ServletException, IOException {
-        if (result.getPage() != null) {
+        if (result != null) {
             String page = result.getPage();
             if (result.isRedirect()) {
                 response.sendRedirect(request.getContextPath() + page);

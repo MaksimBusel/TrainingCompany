@@ -1,20 +1,20 @@
-package com.epam.training.command.impl.teacher;
+package main.java.com.epam.training.command.impl.teacher;
 
-import com.epam.training.command.Command;
-import com.epam.training.command.CommandResult;
-import com.epam.training.constant.PagesConstant;
-import com.epam.training.dto.StudentTaskDto;
-import com.epam.training.exception.ServiceException;
-import com.epam.training.service.StudentTaskDtoService;
+import main.java.com.epam.training.command.Command;
+import main.java.com.epam.training.command.CommandResult;
+import main.java.com.epam.training.constant.PagesConstant;
+import main.java.com.epam.training.dto.StudentTaskDto;
+import main.java.com.epam.training.exception.ServiceException;
+import main.java.com.epam.training.service.StudentTaskDtoService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
-public class StudentsHaveTask implements Command {
-    StudentTaskDtoService service;
+public class StudentsHaveTaskCommand implements Command {
+    private StudentTaskDtoService service;
 
-    public StudentsHaveTask(StudentTaskDtoService service) {
+    public StudentsHaveTaskCommand(StudentTaskDtoService service) {
         this.service = service;
     }
 

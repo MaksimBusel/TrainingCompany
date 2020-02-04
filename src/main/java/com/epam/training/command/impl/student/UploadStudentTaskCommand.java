@@ -1,13 +1,12 @@
-package com.epam.training.command.impl.student;
+package main.java.com.epam.training.command.impl.student;
 
-import com.epam.training.RedirectUrlCreator;
-import com.epam.training.command.Command;
-import com.epam.training.command.CommandResult;
-import com.epam.training.command.CommandType;
-import com.epam.training.constant.PagesConstant;
-import com.epam.training.entity.User;
-import com.epam.training.exception.ServiceException;
-import com.epam.training.service.StudentTaskService;
+import main.java.com.epam.training.RedirectUrlCreator;
+import main.java.com.epam.training.command.Command;
+import main.java.com.epam.training.command.CommandResult;
+import main.java.com.epam.training.constant.CommandType;
+import main.java.com.epam.training.entity.User;
+import main.java.com.epam.training.exception.ServiceException;
+import main.java.com.epam.training.service.StudentTaskService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -17,7 +16,8 @@ import javax.servlet.http.Part;
 import java.io.IOException;
 
 public class UploadStudentTaskCommand implements Command {
-    StudentTaskService service;
+    private StudentTaskService service;
+    private static final String COURSE_ID = "&courseId=";
 
     public UploadStudentTaskCommand(StudentTaskService service) {
         this.service = service;
@@ -32,13 +32,13 @@ public class UploadStudentTaskCommand implements Command {
             HttpSession session = request.getSession();
             User student = (User) session.getAttribute("user");
             long userId = student.getId();
-            String course = request.getParameter("course_id");
-            long courseId = Long.valueOf(course);
-            service.uploadStudentTask(studentTask, taskId, userId, courseId);
+            service.uploadStudentTask(studentTask, taskId, userId);
         } catch (IOException | ServletException e) {
             throw new ServiceException(e);
         }
+        String course = request.getParameter("course_id");
+        long courseId = Long.valueOf(course);
 
-        return CommandResult.redirect(RedirectUrlCreator.create(CommandType.SHOW_MY_COURSES));
+        return CommandResult.redirect(RedirectUrlCreator.create(CommandType.SHOW_MY_MARKS)+COURSE_ID+courseId);
     }
 }

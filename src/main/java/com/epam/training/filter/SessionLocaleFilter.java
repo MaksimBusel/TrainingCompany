@@ -1,4 +1,4 @@
-package com.epam.training.filter;
+package main.java.com.epam.training.filter;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;

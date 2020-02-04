@@ -1,12 +1,12 @@
-package com.epam.training.service;
+package main.java.com.epam.training.service;
 
-import com.epam.training.dao.DaoHelper;
-import com.epam.training.dao.DaoHelperFactory;
-import com.epam.training.dao.impl.StudentCourseDaoImpl;
-import com.epam.training.dto.CourseDto;
-import com.epam.training.entity.Course;
-import com.epam.training.exception.DaoException;
-import com.epam.training.exception.ServiceException;
+import main.java.com.epam.training.dao.DaoHelper;
+import main.java.com.epam.training.dao.DaoHelperFactory;
+import main.java.com.epam.training.dao.impl.StudentCourseDaoImpl;
+import main.java.com.epam.training.dto.CourseDto;
+import main.java.com.epam.training.entity.Course;
+import main.java.com.epam.training.exception.DaoException;
+import main.java.com.epam.training.exception.ServiceException;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -30,7 +30,10 @@ public class StudentCourseService {
     public void enroll(long userId, long courseId) throws ServiceException {
         try (DaoHelper helper = daoHelperFactory.create()) {
             StudentCourseDaoImpl dao = helper.createStudentCourseDao();
-            dao.enrollStudentInCourse(userId, courseId);
+            boolean resultCheck = dao.findStudentEnrolledInCourse(userId, courseId);
+            if (!resultCheck) {
+                dao.enrollStudentInCourse(userId, courseId);
+            }
         } catch (DaoException | SQLException e) {
             throw new ServiceException(e);
         }

@@ -1,11 +1,11 @@
-package com.epam.training.service;
+package main.java.com.epam.training.service;
 
-import com.epam.training.dao.DaoHelper;
-import com.epam.training.dao.DaoHelperFactory;
-import com.epam.training.dao.impl.StudentTaskDaoImpl;
-import com.epam.training.entity.StudentTask;
-import com.epam.training.exception.DaoException;
-import com.epam.training.exception.ServiceException;
+import main.java.com.epam.training.dao.DaoHelper;
+import main.java.com.epam.training.dao.DaoHelperFactory;
+import main.java.com.epam.training.dao.impl.StudentTaskDaoImpl;
+import main.java.com.epam.training.entity.StudentTask;
+import main.java.com.epam.training.exception.DaoException;
+import main.java.com.epam.training.exception.ServiceException;
 
 import javax.servlet.http.Part;
 import java.io.*;
@@ -66,12 +66,24 @@ public class StudentTaskService {
         return null;
     }
 
-    public void uploadStudentTask(Part studentTask, long taskId, long userId, long courseId) throws ServiceException {
+    public void uploadStudentTask(Part studentTask, long taskId, long userId) throws ServiceException {
         try (DaoHelper helper = daoHelperFactory.create()) {
             StudentTaskDaoImpl dao = helper.createStudentTaskDao();
             String pathToFile = saveFile(studentTask);
-            dao.addStudentTask(pathToFile, taskId, userId, courseId);
+            dao.updateFilePath(pathToFile, taskId, userId);
         } catch (SQLException | DaoException e) {
+            throw new ServiceException(e);
+        }
+    }
+
+    public void add(long taskId, long courseId, long userId) throws ServiceException {
+        try (DaoHelper helper = daoHelperFactory.create()) {
+            StudentTaskDaoImpl dao = helper.createStudentTaskDao();
+            boolean resultCheck = dao.findByTaskIdUserId(userId, taskId);
+            if (!resultCheck) {
+                dao.addStudentTask(taskId, courseId, userId);
+            }
+        } catch (DaoException | SQLException e) {
             throw new ServiceException(e);
         }
     }
@@ -101,9 +113,5 @@ public class StudentTaskService {
             }
         }
         return null;
-    }
-
-    public void add(long courseId) {
-
     }
 }

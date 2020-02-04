@@ -1,15 +1,18 @@
-package com.epam.training.dao.impl;
+package main.java.com.epam.training.dao.impl;
 
-import com.epam.training.dao.AbstractDao;
-import com.epam.training.dao.StudentCourseDao;
-import com.epam.training.dto.CourseDto;
-import com.epam.training.entity.Course;
-import com.epam.training.entity.Identifable;
-import com.epam.training.exception.DaoException;
-import com.epam.training.mapper.CourseDtoRowMapper;
-import com.epam.training.mapper.CourseRowMapper;
+import main.java.com.epam.training.dao.AbstractDao;
+import main.java.com.epam.training.dao.StudentCourseDao;
+import main.java.com.epam.training.dto.CourseDto;
+import main.java.com.epam.training.entity.Course;
+import main.java.com.epam.training.entity.Identifable;
+import main.java.com.epam.training.exception.DaoException;
+import main.java.com.epam.training.mapper.CourseDtoRowMapper;
+import main.java.com.epam.training.mapper.CourseRowMapper;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,6 +23,7 @@ public class StudentCourseDaoImpl extends AbstractDao implements StudentCourseDa
             "FROM users_courses WHERE user_id=?)";
     private static final String ENROLL_STUDENT_IN_COURSE = "INSERT INTO users_courses (user_id, course_id) VALUES(?,?)";
     private static final String REMOVE_STUDENT_FROM_COURSE = "DELETE FROM users_courses WHERE user_id=? AND course_id=?";
+    private static final String FIND_STUDENT_ENROLLED_IN_COURSE = "SELECT * FROM users_courses WHERE user_id=? AND course_id=?";
 
     public StudentCourseDaoImpl(Connection connection) {
         super(connection);
@@ -52,6 +56,15 @@ public class StudentCourseDaoImpl extends AbstractDao implements StudentCourseDa
     
     public void enrollStudentInCourse(long userId, long courseId) throws DaoException {
         executeUpdate(ENROLL_STUDENT_IN_COURSE, userId, courseId);
+    }
+
+    public boolean findStudentEnrolledInCourse(long studentId, long courseId) throws DaoException {
+        try(PreparedStatement statement = createStatement(FIND_STUDENT_ENROLLED_IN_COURSE, studentId, courseId);
+            ResultSet resultSet = statement.executeQuery()){
+            return resultSet.next();
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        }
     }
 
     public void unenrollStudentFromCourse(long userId, long courseId) throws DaoException {

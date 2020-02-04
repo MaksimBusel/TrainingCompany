@@ -1,6 +1,6 @@
-package com.epam.training.dto;
+package main.java.com.epam.training.dto;
 
-import com.epam.training.entity.Identifable;
+import main.java.com.epam.training.entity.Identifable;
 
 public class StudentTaskDto implements Identifable {
     public static final String ID = "student_task_id";
@@ -13,9 +13,10 @@ public class StudentTaskDto implements Identifable {
     private String taskName;
     private int mark;
     private String feedback;
+    private String filePath;
 
     public StudentTaskDto(long studentTaskId, long userId, long taskId, String studentFirstName, String studentLastName,
-                          String taskName, int mark, String feedback) {
+                          String taskName, int mark, String feedback, String filePath) {
         this.id = studentTaskId;
         this.userId = userId;
         this.taskId = taskId;
@@ -24,6 +25,7 @@ public class StudentTaskDto implements Identifable {
         this.taskName = taskName;
         this.mark = mark;
         this.feedback = feedback;
+        this.filePath=filePath;
     }
 
     public long getUserId() {
@@ -80,6 +82,14 @@ public class StudentTaskDto implements Identifable {
 
     public void setFeedback(String feedback) {
         this.feedback = feedback;
+    }
+
+    public String getFilePath() {
+        return filePath;
+    }
+
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
     }
 
     @Override

@@ -1,6 +1,7 @@
-package com.epam.training.entity;
+package main.java.com.epam.training.entity;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Objects;
 
 public class Course implements Identifable, Serializable {
@@ -15,8 +16,8 @@ public class Course implements Identifable, Serializable {
     private long id;
     private String name;
     private String description;
-    private String dateFrom;
-    private String dateTo;
+    private LocalDate dateFrom;
+    private LocalDate dateTo;
     private String teacherId;
 
     public Course(long id, String name, String description, String dateFrom, String dateTo, String teacherId) {
@@ -24,8 +25,8 @@ public class Course implements Identifable, Serializable {
         this.teacherId = teacherId;
         this.name = name;
         this.description = description;
-        this.dateFrom = dateFrom;
-        this.dateTo = dateTo;
+        this.dateFrom = LocalDate.parse(dateFrom);
+        this.dateTo = LocalDate.parse(dateTo);
     }
 
     public String getName() {
@@ -44,20 +45,20 @@ public class Course implements Identifable, Serializable {
         this.description = description;
     }
 
-    public String getDateFrom() {
+    public LocalDate getDateFrom() {
         return dateFrom;
     }
 
     public void setDateFrom(String dateFrom) {
-        this.dateFrom = dateFrom;
+        this.dateFrom = LocalDate.parse(dateFrom);
     }
 
-    public String getDateTo() {
+    public LocalDate getDateTo() {
         return dateTo;
     }
 
     public void setDateTo(String dateTo) {
-        this.dateTo = dateTo;
+        this.dateTo = LocalDate.parse(dateTo);
     }
 
     public String getTeacherId() {

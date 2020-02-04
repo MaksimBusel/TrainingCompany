@@ -1,4 +1,4 @@
-package com.epam.training.connection;
+package main.java.com.epam.training.connection;
 
 import java.util.ArrayDeque;
 import java.util.Queue;

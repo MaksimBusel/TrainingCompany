@@ -1,12 +1,12 @@
-package com.epam.training.command.impl.student;
+package main.java.com.epam.training.command.impl.student;
 
-import com.epam.training.command.Command;
-import com.epam.training.command.CommandResult;
-import com.epam.training.constant.PagesConstant;
-import com.epam.training.entity.StudentTask;
-import com.epam.training.entity.User;
-import com.epam.training.exception.ServiceException;
-import com.epam.training.service.StudentTaskService;
+import main.java.com.epam.training.command.Command;
+import main.java.com.epam.training.command.CommandResult;
+import main.java.com.epam.training.constant.PagesConstant;
+import main.java.com.epam.training.entity.StudentTask;
+import main.java.com.epam.training.entity.User;
+import main.java.com.epam.training.exception.ServiceException;
+import main.java.com.epam.training.service.StudentTaskService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -29,6 +29,7 @@ public class ShowMyMarksCommand implements Command {
         long courseId= Long.valueOf(course);
         List<StudentTask> tasks = service.showMyMarks(userId, courseId);
         request.setAttribute("tasks", tasks);
+        request.setAttribute("courseId", courseId);
 
         return CommandResult.forward(PagesConstant.MY_MARKS);
     }

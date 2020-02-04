@@ -1,11 +1,12 @@
-package com.epam.training.command;
+package main.java.com.epam.training.command;
 
-import com.epam.training.command.impl.admin.*;
-import com.epam.training.command.impl.common.*;
-import com.epam.training.command.impl.student.*;
-import com.epam.training.command.impl.teacher.*;
-import com.epam.training.dao.DaoHelperFactory;
-import com.epam.training.service.*;
+import main.java.com.epam.training.command.impl.admin.*;
+import main.java.com.epam.training.command.impl.common.*;
+import main.java.com.epam.training.command.impl.student.*;
+import main.java.com.epam.training.command.impl.teacher.*;
+import main.java.com.epam.training.constant.CommandType;
+import main.java.com.epam.training.dao.DaoHelperFactory;
+import main.java.com.epam.training.service.*;
 
 public class CommandFactory {
 
@@ -51,7 +52,7 @@ public class CommandFactory {
             case CommandType.SHOW_TEACHER_TASKS:
                 return new ShowTeacherTasksCommand(new TaskService(new DaoHelperFactory()));
             case CommandType.SHOW_STUDENTS_HAVE_TASK:
-                return new StudentsHaveTask(new StudentTaskDtoService(new DaoHelperFactory()));
+                return new StudentsHaveTaskCommand(new StudentTaskDtoService(new DaoHelperFactory()));
             case CommandType.ESTIMATE_TASK:
                 return new EstimateTaskCommand(new StudentTaskService(new DaoHelperFactory()));
             case CommandType.LOCK_TASK:
@@ -66,6 +67,8 @@ public class CommandFactory {
                 return new UploadStudentTaskCommand(new StudentTaskService(new DaoHelperFactory()));
             case CommandType.DOWNLOAD_STUDENT_TASK:
                 return new DownloadStudentTaskCommand(new StudentTaskService(new DaoHelperFactory()));
+            case CommandType.ADD_STUDENT_TASK:
+                return new AddStudentTaskCommand(new StudentTaskService(new DaoHelperFactory()));
 
             default:
                 throw new IllegalArgumentException("Unknown command" + command);

@@ -1,9 +1,9 @@
-package com.epam.training.dao;
+package main.java.com.epam.training.dao;
 
-import com.epam.training.connection.ConnectionPool;
-import com.epam.training.connection.ProxyConnection;
-import com.epam.training.dao.impl.*;
-import com.epam.training.exception.DaoException;
+import main.java.com.epam.training.connection.ConnectionPool;
+import main.java.com.epam.training.connection.ProxyConnection;
+import main.java.com.epam.training.dao.impl.*;
+import main.java.com.epam.training.exception.DaoException;
 
 import java.sql.Connection;
 import java.sql.SQLException;

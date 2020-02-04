@@ -1,14 +1,15 @@
-package com.epam.training.command.impl.admin;
+package main.java.com.epam.training.command.impl.admin;
 
-import com.epam.training.command.Command;
-import com.epam.training.command.CommandResult;
-import com.epam.training.command.CommandType;
-import com.epam.training.RedirectUrlCreator;
-import com.epam.training.exception.ServiceException;
-import com.epam.training.service.CoursesService;
+import main.java.com.epam.training.command.Command;
+import main.java.com.epam.training.command.CommandResult;
+import main.java.com.epam.training.constant.CommandType;
+import main.java.com.epam.training.RedirectUrlCreator;
+import main.java.com.epam.training.exception.ServiceException;
+import main.java.com.epam.training.service.CoursesService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.time.LocalDate;
 
 public class EditCourseCommand implements Command {
     private CoursesService service;
@@ -25,9 +26,11 @@ public class EditCourseCommand implements Command {
         String description = request.getParameter("description");
         String dateFrom = request.getParameter("date_from");
         String dateTo = request.getParameter("date_to");
+        LocalDate localDateFrom = LocalDate.parse(dateFrom);
+        LocalDate localDateTo = LocalDate.parse(dateTo);
         String teacher = request.getParameter("teacher");
         long teacherId = Long.valueOf(teacher);
-        service.editCourse(courseId, teacherId, name, description, dateFrom, dateTo);
+        service.editCourse(courseId, teacherId, name, description, localDateFrom, localDateTo);
 
         return CommandResult.redirect(RedirectUrlCreator.create(CommandType.SHOW_EDIT_COURSE_PAGE));
     }

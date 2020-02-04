@@ -7,7 +7,7 @@
 
   <servlet>
     <servlet-name>controller</servlet-name>
-    <servlet-class>com.epam.training.Controller</servlet-class>
+    <servlet-class>main.java.com.epam.training.Controller</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>controller</servlet-name>
@@ -25,8 +25,26 @@
   </servlet-mapping>
 
   <filter>
+    <filter-name>RoleFilter</filter-name>
+    <filter-class>main.java.com.epam.training.filter.RoleFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>RoleFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+
+  <filter>
+    <filter-name>SessionLocaleFilter</filter-name>
+    <filter-class>main.java.com.epam.training.filter.SessionLocaleFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>SessionLocaleFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+
+  <filter>
     <filter-name>EncodingFilter</filter-name>
-    <filter-class>com.epam.training.filter.EncodingFilter</filter-class>
+    <filter-class>main.java.com.epam.training.filter.EncodingFilter</filter-class>
     <init-param>
       <param-name>encoding</param-name>
       <param-value>UTF-8</param-value>
@@ -34,15 +52,6 @@
   </filter>
   <filter-mapping>
     <filter-name>EncodingFilter</filter-name>
-    <url-pattern>/*</url-pattern>
-  </filter-mapping>
-
-  <filter>
-    <filter-name>SessionLocaleFilter</filter-name>
-    <filter-class>com.epam.training.filter.SessionLocaleFilter</filter-class>
-  </filter>
-  <filter-mapping>
-    <filter-name>SessionLocaleFilter</filter-name>
     <url-pattern>/*</url-pattern>
   </filter-mapping>
 

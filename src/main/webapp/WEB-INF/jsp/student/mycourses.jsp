@@ -29,7 +29,7 @@
 		<th><fmt:message key="table.course"/></th>
 			<th><fmt:message key="table.description"/></th>
 			<th><fmt:message key="table.datefrom"/></th>
-			<th><fmt:message key="table.dateto"/></th>
+			<th><fmt:message key="table.deadline"/></th>
 			<th><fmt:message key="table.teacher"/></th>
 		<th></th>
 	</tr>

@@ -1,7 +1,7 @@
-package com.epam.training.dao;
+package main.java.com.epam.training.dao;
 
-import com.epam.training.entity.User;
-import com.epam.training.exception.DaoException;
+import main.java.com.epam.training.entity.User;
+import main.java.com.epam.training.exception.DaoException;
 
 import java.util.Optional;
 

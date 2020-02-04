@@ -1,11 +1,11 @@
-package com.epam.training.command.impl.teacher;
+package main.java.com.epam.training.command.impl.teacher;
 
-import com.epam.training.command.Command;
-import com.epam.training.command.CommandResult;
-import com.epam.training.command.CommandType;
-import com.epam.training.RedirectUrlCreator;
-import com.epam.training.exception.ServiceException;
-import com.epam.training.service.StudentTaskService;
+import main.java.com.epam.training.command.Command;
+import main.java.com.epam.training.command.CommandResult;
+import main.java.com.epam.training.constant.CommandType;
+import main.java.com.epam.training.RedirectUrlCreator;
+import main.java.com.epam.training.exception.ServiceException;
+import main.java.com.epam.training.service.StudentTaskService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

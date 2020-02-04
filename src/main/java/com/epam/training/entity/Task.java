@@ -1,6 +1,7 @@
-package com.epam.training.entity;
+package main.java.com.epam.training.entity;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Objects;
 
 public class Task implements Identifable, Serializable {
@@ -12,30 +13,30 @@ public class Task implements Identifable, Serializable {
 
     private long id;
     private String name;
-    private String dateFrom;
-    private String dateTo;
+    private LocalDate dateFrom;
+    private LocalDate dateTo;
 
     public Task(long id, String name, String dateFrom, String dateTo) {
         this.id = id;
         this.name = name;
-        this.dateFrom = dateFrom;
-        this.dateTo = dateTo;
+        this.dateFrom = LocalDate.parse(dateFrom);
+        this.dateTo = LocalDate.parse(dateTo);
     }
 
-    public String getDateFrom() {
+    public LocalDate getDateFrom() {
         return dateFrom;
     }
 
     public void setDateFrom(String dateFrom) {
-        this.dateFrom = dateFrom;
+        this.dateFrom = LocalDate.parse(dateFrom);
     }
 
-    public String getDateTo() {
+    public LocalDate getDateTo() {
         return dateTo;
     }
 
     public void setDateTo(String dateTo) {
-        this.dateTo = dateTo;
+        this.dateTo = LocalDate.parse(dateTo);
     }
 
     public String getName() {

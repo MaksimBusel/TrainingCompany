@@ -1,8 +1,7 @@
-package com.epam.training.mapper;
+package main.java.com.epam.training.mapper;
 
-import com.epam.training.entity.User;
-import com.epam.training.entity.UserRole;
-
+import main.java.com.epam.training.entity.User;
+import main.java.com.epam.training.entity.UserRole;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
