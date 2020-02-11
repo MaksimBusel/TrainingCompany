@@ -12,25 +12,30 @@ import javax.servlet.http.HttpServletResponse;
 import java.time.LocalDate;
 
 public class AddCourseCommand implements Command {
+    private static final String ADDED_RESULT = "&result=";
+    private static final String TEACHER = "teacher";
+    private static final String COURSE = "course";
+    private static final String DESCRIPTION = "description";
+    private static final String DATE_FROM = "dateFrom";
+    private static final String DATE_TO = "dateTo";
     private CoursesService service;
 
     public AddCourseCommand(CoursesService service) {
         this.service = service;
     }
 
-
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
-        String teacher = request.getParameter("teacher");
-        long teacherId = Long.valueOf(teacher);
-        String name = request.getParameter("course");
-        String description = request.getParameter("description");
-        String dateFrom = request.getParameter("dateFrom");
+        String teacher = request.getParameter(TEACHER);
+        long teacherId = Long.parseLong(teacher);
+        String name = request.getParameter(COURSE);
+        String description = request.getParameter(DESCRIPTION);
+        String dateFrom = request.getParameter(DATE_FROM);
         LocalDate localDateFrom = LocalDate.parse(dateFrom);
-        String dateTo = request.getParameter("dateTo");
+        String dateTo = request.getParameter(DATE_TO);
         LocalDate localDateTo = LocalDate.parse(dateTo);
-        service.addCourse(teacherId, name, description, localDateFrom, localDateTo);
+        String result = service.addCourse(teacherId, name, description, localDateFrom, localDateTo);
 
-        return CommandResult.redirect(RedirectUrlCreator.create(CommandType.SHOW_MAIN_PAGE));
+        return CommandResult.redirect(RedirectUrlCreator.create(CommandType.SHOW_EDIT_COURSE_PAGE)+ADDED_RESULT+result);
     }
 }

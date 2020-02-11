@@ -3,8 +3,6 @@ package main.java.com.epam.training.dto;
 import main.java.com.epam.training.entity.Identifable;
 
 public class StudentTaskDto implements Identifable {
-    public static final String ID = "student_task_id";
-
     private long id;
     private long userId;
     private long taskId;

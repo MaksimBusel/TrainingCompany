@@ -2,13 +2,11 @@ package main.java.com.epam.training.command.impl.admin;
 
 import main.java.com.epam.training.command.Command;
 import main.java.com.epam.training.command.CommandResult;
-import main.java.com.epam.training.constant.PagesConstant;
+import main.java.com.epam.training.constant.Pages;
 import main.java.com.epam.training.dto.CourseDto;
-import main.java.com.epam.training.entity.Course;
 import main.java.com.epam.training.entity.User;
 import main.java.com.epam.training.exception.ServiceException;
 import main.java.com.epam.training.service.CourseDtoService;
-import main.java.com.epam.training.service.CoursesService;
 import main.java.com.epam.training.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 public class ShowEditCoursePageCommand implements Command {
+    private static final String RESULT = "result";
     private CourseDtoService coursesService;
     private UserService userService;
 
@@ -30,7 +29,9 @@ public class ShowEditCoursePageCommand implements Command {
         List<User> teachers = userService.showTeachers();
         request.setAttribute("teachers", teachers);
         request.setAttribute("courses", courses);
+        String result = request.getParameter(RESULT);
+        request.setAttribute("result",result);
 
-        return CommandResult.forward(PagesConstant.EDIT_COURSE);
+        return CommandResult.forward(Pages.EDIT_COURSE);
     }
 }

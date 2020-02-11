@@ -2,7 +2,7 @@ package main.java.com.epam.training.command.impl.teacher;
 
 import main.java.com.epam.training.command.Command;
 import main.java.com.epam.training.command.CommandResult;
-import main.java.com.epam.training.constant.PagesConstant;
+import main.java.com.epam.training.constant.Pages;
 import main.java.com.epam.training.entity.Course;
 import main.java.com.epam.training.entity.User;
 import main.java.com.epam.training.exception.ServiceException;
@@ -14,6 +14,8 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 public class TeacherCoursesCommand implements Command {
+    private static final String USER = "user";
+
     private CoursesService service;
 
     public TeacherCoursesCommand(CoursesService service) {
@@ -23,11 +25,11 @@ public class TeacherCoursesCommand implements Command {
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         HttpSession session = request.getSession(false);
-        User teacher =(User) session.getAttribute("user");
+        User teacher =(User) session.getAttribute(USER);
         long teacherId = teacher.getId();
         List<Course> teacherCourses = service.showTeacherCourses(teacherId);
         request.setAttribute("teacherCourses", teacherCourses);
 
-        return CommandResult.forward(PagesConstant.TEACHER_COURSES);
+        return CommandResult.forward(Pages.TEACHER_COURSES);
     }
 }

@@ -14,6 +14,11 @@
 </head>
 
 <body>
+	<c:if test="${result!= null}">
+		<div class="message">
+			<p><fmt:message key="${result}"/></p>
+		</div>
+	</c:if>
 
 <div class="content">
 	<section class="section">
@@ -47,7 +52,7 @@
 				<input min="2020-01-01" max="2023-01-01" type="date" name="date_from" value="${course.dateFrom}">
 			</td>
 			<td>
-				<input min="2020-01-01" max="2023-01-01" type="date" name="date_to" value="${course.dateFrom}">
+				<input min="2020-01-01" max="2023-01-01" type="date" name="date_to" value="${course.dateTo}">
 			</td>
 			<td>
 				<select name="teacher">

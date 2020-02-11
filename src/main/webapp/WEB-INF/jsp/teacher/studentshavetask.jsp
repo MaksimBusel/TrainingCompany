@@ -14,6 +14,11 @@
 </head>
 
 <body>
+	<c:if test="${result != null}">
+		<div class="message">
+			<p><fmt:message key="${result}"/></p>
+		</div>
+	</c:if>
 
 <div class="content">
 <section class="section">

@@ -7,21 +7,15 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 public class StudentTask implements Identifable, Serializable {
-    public static final String STUDENT_TASK_ID = "student_task_id";
-    public static final String MARK = "mark";
-    public static final String FEEDBACK = "feedback";
-    public static final String FILE_PATH = "file_path";
-    public static final String TABLE = "student_tasks";
-
     private Task task;
     private long studentTaskId;
     private Integer mark;
     private String feedback;
     private String filePath;
 
-    public StudentTask(long id, long studentTaskId, String name, String dateFrom, String dateTo, Integer mark,
+    public StudentTask(long taskId, long studentTaskId, String name, String dateFrom, String dateTo, Integer mark,
                        String feedback, String filePath) {
-        task = new Task(id, name, dateFrom, dateTo);
+        task = new Task(taskId, name, dateFrom, dateTo);
         this.filePath = filePath;
         this.studentTaskId=studentTaskId;
         this.mark = mark;

@@ -14,6 +14,11 @@
 </head>
 
 <body>
+	<c:if test="${result !=null}">
+		<div class="message">
+			<p><fmt:message key="${result}"/></p>
+		</div>
+	</c:if>
 
 <div class="content">
 	<section class="section">
@@ -53,6 +58,7 @@
 				<c:if test="${user.role == 'STUDENT'}">
 				<form action="controller" method= "post">
 					<input type="hidden" name="course_id"  value="${course.id}"/>
+					<input type="hidden" name="date_to"  value="${course.dateTo}"/>
 					<input type="hidden" name="command" value="enrollCourse">
 					<input type="submit" value="<fmt:message key="button.enroll"/>"/>
 				</form>

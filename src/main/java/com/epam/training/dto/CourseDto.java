@@ -3,10 +3,6 @@ package main.java.com.epam.training.dto;
 import main.java.com.epam.training.entity.Identifable;
 
 public class CourseDto implements Identifable {
-    public static final String FIRST_NAME = "first_name";
-    public static final String LAST_NAME = "last_name";
-    public static final String TEACHER_ID = "teacher_id";
-
     private long id;
     private String name;
     private String description;
@@ -15,9 +11,10 @@ public class CourseDto implements Identifable {
     private String teacherFirstName;
     private String teacherLastName;
     private long teacherId;
+    private int lockCourse;
 
     public CourseDto(long id, String name, String description, String dateFrom, String dateTo, String teacherFirstName,
-                     String teacherLastName, long teacherId) {
+                     String teacherLastName, long teacherId, int lockCourse) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -26,6 +23,7 @@ public class CourseDto implements Identifable {
         this.teacherFirstName = teacherFirstName;
         this.teacherLastName = teacherLastName;
         this.teacherId=teacherId;
+        this.lockCourse = lockCourse;
     }
 
     public long getId() {
@@ -86,5 +84,13 @@ public class CourseDto implements Identifable {
 
     public void setTeacherId(long teacherId) {
         this.teacherId = teacherId;
+    }
+
+    public int getLockCourse() {
+        return lockCourse;
+    }
+
+    public void setLockCourse(int lockCourse) {
+        this.lockCourse = lockCourse;
     }
 }

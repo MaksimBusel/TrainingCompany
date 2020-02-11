@@ -5,28 +5,23 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 public class Course implements Identifable, Serializable {
-    public static final String ID = "course_id";
-    public static final String COURSE_NAME = "course_name";
-    public static final String DESCRIPTION = "description";
-    public static final String DATE_FROM = "date_from";
-    public static final String DATE_TO = "date_to";
-    public static final String TEACHER_ID = "teacher_id";
-    public static final String TABLE = "courses";
-
     private long id;
     private String name;
     private String description;
     private LocalDate dateFrom;
     private LocalDate dateTo;
     private String teacherId;
+    private int lockCourse;
 
-    public Course(long id, String name, String description, String dateFrom, String dateTo, String teacherId) {
+    public Course(long id, String name, String description, String dateFrom, String dateTo, String teacherId,
+                  int lockCourse) {
         this.id = id;
         this.teacherId = teacherId;
         this.name = name;
         this.description = description;
         this.dateFrom = LocalDate.parse(dateFrom);
         this.dateTo = LocalDate.parse(dateTo);
+        this.lockCourse=lockCourse;
     }
 
     public String getName() {
@@ -72,6 +67,14 @@ public class Course implements Identifable, Serializable {
     @Override
     public long getId() {
         return id;
+    }
+
+    public int getLockCourse() {
+        return lockCourse;
+    }
+
+    public void setLockCourse(int lockCourse) {
+        this.lockCourse = lockCourse;
     }
 
     @Override

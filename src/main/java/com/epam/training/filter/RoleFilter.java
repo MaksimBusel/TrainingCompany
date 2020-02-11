@@ -1,7 +1,7 @@
 package main.java.com.epam.training.filter;
 
 import main.java.com.epam.training.constant.CommandType;
-import main.java.com.epam.training.constant.PagesConstant;
+import main.java.com.epam.training.constant.Pages;
 import main.java.com.epam.training.entity.User;
 import main.java.com.epam.training.entity.UserRole;
 
@@ -11,25 +11,28 @@ import java.io.IOException;
 import java.util.*;
 
 public class RoleFilter implements Filter {
-    private final Map<String, List<UserRole>> commandsUsers = new HashMap<>();
+    private static final Map<String, List<UserRole>> commandsUsers = new HashMap<>();
+    private static final String RIGHTS_ERROR = "You don't have rights for this operation";
+    private static final String COMMAND = "command";
+    private static final String USER = "user";
+    private static final String ERROR = "error";
+
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
-        String command = request.getParameter("command");
-        User user = (User) request.getSession().getAttribute("user");
+        String command = request.getParameter(COMMAND);
+        User user = (User) request.getSession().getAttribute(USER);
         if (user != null) {
             UserRole userRole = user.getRole();
             List<UserRole> roles = commandsUsers.get(command);
             if(roles!=null && !roles.contains(userRole)){
-                String error = "You don't have rights for this operation";
-                request.setAttribute("error", error);
-                RequestDispatcher dispatcher = request.getRequestDispatcher(PagesConstant.LOGIN);
+                request.setAttribute(ERROR, RIGHTS_ERROR);
+                RequestDispatcher dispatcher = request.getRequestDispatcher(Pages.LOGIN);
                 dispatcher.forward(request, response);
                 return;
             }
         }
-
         chain.doFilter(request, response);
     }
 
@@ -71,5 +74,6 @@ public class RoleFilter implements Filter {
         commandsUsers.put(CommandType.SHOW_COURSE_TASKS, student);
         commandsUsers.put(CommandType.SHOW_MY_MARKS, student);
         commandsUsers.put(CommandType.ADD_STUDENT_TASK, student);
+        commandsUsers.put(CommandType.SHOW_LOGIN_PAGE, allUsers);
     }
 }

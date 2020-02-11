@@ -14,7 +14,12 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 public class DownloadStudentTaskCommand implements Command {
-    StudentTaskService service;
+    private static final String STUDENT_TASK_ID = "student_task_id";
+    private static final String APPLICATION_OCTET_STREAM = "application/octet-stream";
+    private static final String ATTACHMENT = "attachment; filename=\"%s\"";
+    private static final String CONTENT_DISPOSITION = "Content-Disposition";
+
+    private StudentTaskService service;
 
     public DownloadStudentTaskCommand(StudentTaskService service) {
         this.service = service;
@@ -22,38 +27,36 @@ public class DownloadStudentTaskCommand implements Command {
 
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
-        String studentTask = request.getParameter("student_task_id");
-        long studentTaskId= Long.valueOf(studentTask);
-        String pathToFile = service.downloadStudentTask(studentTaskId);
-        downloadFile(pathToFile, response, request);
+        String studentTask = request.getParameter(STUDENT_TASK_ID);
+        long studentTaskId = Long.parseLong(studentTask);
+        String pathToFile = service.getStudentTask(studentTaskId);
+
+        File file = new File(pathToFile);
+        ServletContext context = request.getServletContext();
+        String mimeType = context.getMimeType(pathToFile);
+        if (mimeType == null) {
+            mimeType = APPLICATION_OCTET_STREAM;
+        }
+        response.setContentType(mimeType);
+        response.setContentLength((int) file.length());
+        String headerKey = CONTENT_DISPOSITION;
+        String headerValue = String.format(ATTACHMENT, file.getName());
+        response.setHeader(headerKey, headerValue);
+        downloadFile(file, response);
 
         return null;
     }
 
-    private void downloadFile(String filePath, HttpServletResponse response, HttpServletRequest request) {
-        File downloadFile = new File(filePath);
-        configureResponse(downloadFile, filePath,response, request);
-        try (FileInputStream inStream = new FileInputStream(downloadFile); OutputStream outStream = response.getOutputStream();) {
-           byte[] buffer = new byte[4096];
+    private void downloadFile(File file, HttpServletResponse response) {
+        try (FileInputStream inStream = new FileInputStream(file); OutputStream outStream = response.getOutputStream()) {
+            final int bufferSize = 4 * 1024;
+            byte[] buffer = new byte[bufferSize];
             int bytesRead;
             while ((bytesRead = inStream.read(buffer)) != -1) {
                 outStream.write(buffer, 0, bytesRead);
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            e.printStackTrace();// my exception
         }
-    }
-
-    private void configureResponse(File downloadFile, String filePath, HttpServletResponse response, HttpServletRequest request){
-        ServletContext context = request.getServletContext();
-        String mimeType = context.getMimeType(filePath);
-        if (mimeType == null) {
-            mimeType = "application/octet-stream";
-        }
-        response.setContentType(mimeType);
-        response.setContentLength((int) downloadFile.length());
-        String headerKey = "Content-Disposition";
-        String headerValue = String.format("attachment; filename=\"%s\"", downloadFile.getName());
-        response.setHeader(headerKey, headerValue);
     }
 }

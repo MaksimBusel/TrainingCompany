@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class LockCourseCommand implements Command {
+    private static final String COURSE_ID = "course_id";
+    private static final String LOCK_RESULT = "&result=";
+
     private CoursesService service;
 
     public LockCourseCommand(CoursesService courseService) {
@@ -19,10 +22,10 @@ public class LockCourseCommand implements Command {
 
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
-        String course = request.getParameter("course_id");
-        long courseId = Long.valueOf(course);
-        service.lockCourse(courseId);
+        String course = request.getParameter(COURSE_ID);
+        long courseId = Long.parseLong(course);
+        String result = service.lockCourse(courseId);
 
-        return CommandResult.redirect(RedirectUrlCreator.create(CommandType.SHOW_EDIT_COURSE_PAGE));
+        return CommandResult.redirect(RedirectUrlCreator.create(CommandType.SHOW_EDIT_COURSE_PAGE)+ LOCK_RESULT +result);
     }
 }

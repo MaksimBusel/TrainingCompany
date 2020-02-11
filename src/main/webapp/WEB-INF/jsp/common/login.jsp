@@ -29,9 +29,9 @@
 					<input type="submit" value="<fmt:message key="button.login"/>">
 				</form>
 				<div class="lang">
-					<a class= "language" href="?sessionLocale=en&command=showMainPage"><fmt:message key="language.en"/> |</a>
-					<a class= "language" href="?sessionLocale=ru&command=showMainPage"><fmt:message key="language.ru"/> |</a>
-					<a class= "language" href="?sessionLocale=be&command=showMainPage"><fmt:message key="language.be"/></a>
+					<a class= "language" href="?sessionLocale=en&command=showLoginPage"><fmt:message key="language.en"/> |</a>
+					<a class= "language" href="?sessionLocale=ru&command=showLoginPage"><fmt:message key="language.ru"/> |</a>
+					<a class= "language" href="?sessionLocale=be&command=showLoginPage"><fmt:message key="language.be"/></a>
 				</div>
 			</div>
 		</div>

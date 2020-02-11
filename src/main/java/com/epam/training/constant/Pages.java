@@ -1,6 +1,6 @@
 package main.java.com.epam.training.constant;
 
-public class PagesConstant {
+public class Pages {
     public static final String LOGIN = "/WEB-INF/jsp/common/login.jsp";
     public static final String MAIN = "/WEB-INF/jsp/common/mainpage.jsp";
     public static final String MY_COURSES = "/WEB-INF/jsp/student/mycourses.jsp";

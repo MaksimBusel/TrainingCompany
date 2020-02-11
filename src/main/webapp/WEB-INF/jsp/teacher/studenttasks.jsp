@@ -8,13 +8,17 @@
 
 <html>
 <head>
-	<meta charset= "UTF-8"/>
+	<meta http-equiv="Content-Type" content="text/html; charset="UTF-8" />
 	<title>Student tasks</title>
 	<link href= "css/style.css" rel= "stylesheet"/>
 </head>
 
 <body>
-
+	<c:if test="${result != null}">
+		<div class="message">
+			<p><fmt:message key="${result}"/></p>
+		</div>
+	</c:if>
 <div class="content">
 <section class="section">
 	<div class="container">
@@ -40,25 +44,31 @@
 		<td><c:out value="${task.dateFrom}"/></td>
 		<td><c:out value="${task.dateTo}"/></td>
 		<form action="controller" method= "post">
-		<td>
-			<select name="mark">
-				<option value="${student.mark}">${task.mark}</option>
-				<option value="0"></option>
-				<option value="1">1</option>
-				<option value="2">2</option>
-				<option value="3">3</option>
-				<option value="4">4</option>
-				<option value="5">5</option>
-				<option value="6">6</option>
-				<option value="7">7</option>
-				<option value="8">8</option>
-				<option value="9">9</option>
-				<option value="10">10</option>
-			</select>  /10
-		</td>
-		<td>
-			<textarea name="feedback" cols="80" rows="3">${task.feedback}</textarea>
-		</td>
+		<c:if test="${user.role == 'TEACHER'}">
+			<td>
+				<select name="mark">
+					<option value="${student.mark}">${task.mark}</option>
+					<option value="0"></option>
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option>
+					<option value="5">5</option>
+					<option value="6">6</option>
+					<option value="7">7</option>
+					<option value="8">8</option>
+					<option value="9">9</option>
+					<option value="10">10</option>
+				</select>  /10
+			</td>
+			<td>
+				<textarea name="feedback" cols="80" rows="3">${task.feedback}</textarea>
+			</td>
+		</c:if>
+		<c:if test="${user.role == 'ADMIN'}">
+			<td><c:out value="${task.mark}"/></td>
+			<td class="feedback"><c:out value="${task.feedback}"/></td>
+		</c:if>
 		<td>
 			<c:if test="${user.role == 'TEACHER'}">	
 				<input type="hidden" name="task_id" value="${task.id}">

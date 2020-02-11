@@ -1,6 +1,6 @@
 package main.java.com.epam.training.command.impl.common;
 
-import main.java.com.epam.training.constant.PagesConstant;
+import main.java.com.epam.training.constant.Pages;
 import main.java.com.epam.training.command.Command;
 import main.java.com.epam.training.command.CommandResult;
 import main.java.com.epam.training.exception.ServiceException;
@@ -16,6 +16,6 @@ public class LogoutCommand implements Command {
         HttpSession session = request.getSession();
         session.invalidate();
 
-        return CommandResult.forward(PagesConstant.LOGIN);
+        return CommandResult.forward(Pages.LOGIN);
     }
 }

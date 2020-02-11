@@ -11,7 +11,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class EstimateTaskCommand implements Command {
+    private static final String ADDED_RESULT = "&result=";
     private static final String TASK_ID_PARAMETER = "&task_id=";
+    private static final String MARK = "mark";
+    private static final String TASK_ID = "task_id";
+    private static final String STUDENT_TASK_ID = "student_task_id";
+    private static final String FEEDBACK = "feedback";
+
     private StudentTaskService service;
 
     public EstimateTaskCommand(StudentTaskService service) {
@@ -20,14 +26,15 @@ public class EstimateTaskCommand implements Command {
 
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
-        String mark = request.getParameter("mark");
+        String mark = request.getParameter(MARK);
         Integer studentMark = Integer.valueOf(mark);
-        String feedback = request.getParameter("feedback");
-        String studentTask =  request.getParameter("student_task_id");
-        long studentTaskId= Long.valueOf(studentTask);
-        service.estimateTask(studentTaskId, studentMark, feedback);
-        String taskId =  request.getParameter("task_id");
+        String feedback = request.getParameter(FEEDBACK);
+        String studentTask =  request.getParameter(STUDENT_TASK_ID);
+        long studentTaskId= Long.parseLong(studentTask);
+        String result = service.estimateTask(studentTaskId, studentMark, feedback);
+        String taskId =  request.getParameter(TASK_ID);
 
-        return CommandResult.redirect(RedirectUrlCreator.create(CommandType.SHOW_STUDENTS_HAVE_TASK)+TASK_ID_PARAMETER+taskId);
+        return CommandResult.redirect(RedirectUrlCreator.create(CommandType.SHOW_STUDENTS_HAVE_TASK)+TASK_ID_PARAMETER +
+                taskId + ADDED_RESULT + result);
     }
 }

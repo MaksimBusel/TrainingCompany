@@ -1,6 +1,7 @@
 * {
 	box-sizing: border-box;
 }
+
 html{
 	height: 100%;
 }
@@ -23,7 +24,7 @@ body {
 	font-size:30px;
 	font-weight: 700;
 	text-decoration: none;
-	padding-left: 50px;
+	padding-left: 4%;
 	color: white;
 	transition: color .1s linear;
 }
@@ -35,10 +36,10 @@ body {
 .header_inner{
 	display: flex;
 	justify-content: space-between;
-	height: 80px;
+	height: 10%;
 	background-color: #77CED9;
 	padding-top: 15px;
-	padding-right: 20px;
+	padding-right: 1%;
 }
 
 /* Navigation */
@@ -53,7 +54,7 @@ body {
 .nav_link {
 	display: inline-block;
 	vertical-align: top;
-	margin: 0 10px;
+	margin: 0 0 0 10px;
 	position: relative;
 	
 	color: white;
@@ -88,10 +89,10 @@ body {
 
 .menu{
 	background: #73b7c3;
-	height: 50px;
+	height: 6.5%;
 	font-size: 14px;
 	text-transform: uppercase;
-	padding: 20px 70px 10px;
+	padding: 1.5% 5% 1.5%;
 }
 
 
@@ -103,14 +104,14 @@ body {
 }
 
 .inner_content{
-	min-height: 500px;
+	min-height: 50%;
 	background-color: white;
 }
 
 /* Section */
 
 .section {
-	padding: 10px 0
+	padding: 1% 0
 }
 
 .section_header {
@@ -132,14 +133,14 @@ table{
 	font-size:14px;
 	text-align:center;
 	border-collapse: collapse;
-	margin: -20 auto;
-	margin-bottom: 40px;
+	margin: -20px auto;
+	margin-bottom: 3%;
 }
 
 th, td:first-child {
 	background: #afcde7;
 	color: #fff;
-	padding: 10px 20px;
+	padding: 1% 2%;
 }
 
 th, td {
@@ -150,22 +151,49 @@ th, td {
 
 td {
 	background: #d8e6f3;
-	min-width: 140px;
 }
 
 td:first-child, th:first-child{
 	text-align: left;
-	min-width: 120px;
 }
 
 td:last-child, th:last-child{
 	background: #F1F5FB;
 	border: #F1F5FB;
 	text-align: left;
-	min-width: 20px;
 }
 
 .description {
+	width: 60%;
+	max-width: 650px;
+	text-align: left;
+	padding: 5px;
+}
+
+.button_marks{
+	margin-left: 5%;
+	margin-top: -2%;
+	margin-bottom: 4%;
+}
+
+.button{
+	background: #F1F5FB;
+	border: #F1F5FB;
+	padding-top: 1%;
+}
+
+.mycourse{
+	width: 40%;
+}
+
+.cancelledcourse{
+	font-size: 20px;
+	color: red;
+	font-weight: 700;
+}
+
+.feedback{
+	width: 50%;
 	max-width: 650px;
 	text-align: left;
 	padding: 5px;
@@ -176,7 +204,7 @@ td:last-child, th:last-child{
 footer{
 	width: 100%;
 	background: #77CED9;
-	height: 70px;
+	height: 8.5%;
 	position: relative;
 	padding-top: 20px;
 	color: white;
@@ -264,16 +292,115 @@ footer{
 
 /*ERROR*/
 
+.error_container{
+	height: 100%;
+	color: black;
+	background: #C0CAC9;
+}
+
+.error_page{
+	margin: 0 auto;
+	max-width: 50%;
+	border: 2px solid #000;
+	height: 25%;
+	background: white;
+	position: relative;
+	top: 10%;
+}
+
+.title_error{
+	text-align: center;
+	margin: 0 auto;
+	font-size: 22px;
+	font-weight: 700;
+	padding-top: 1.5%;
+	color: red;
+}
+
 .error{
 	text-align: center;
-	font-size: 22px;
+	font-size: 26px;
 	background: red;
 	height: 30px;
 }
 
+.message_error{
+	padding-left: 5%;
+	padding-right: 5%;
+	padding-bottom: 10px;
+	font-size:20px;
+	font-weight: 550;
+}
+
+.message{
+	text-align: center;
+	font-size:22px;
+	background: yellow;
+	color: red;
+	height: 32px;
+	margin-top: -2%;
+	font-weight: 700;
+}
 
 
+@media (min-width: 620px) and(max-width: 900px){
+.nav {
+	font-size: 14px
+}	
 
+.header_logo{
+	font-size: 28px;
+}
+
+.menu{
+	font-size:12px;
+}
+
+.section_title{
+	font-size: 28px;
+}
+
+table{
+	font-size: 12px;
+}
+}
+
+@media(max-width: 619px){
+.nav {
+	font-size: 10px
+}	
+
+.header_logo{
+	font-size: 22px;
+}
+
+.menu{
+	font-size:10px;
+}
+
+.section_title{
+	font-size: 22px;
+}
+
+table{
+	font-size: 10px;
+}
+}
+
+@media(max-width: 440px){
+
+.nav_link {
+	display: block;
+}
+
+.header_logo{
+	font-size: 18px;
+}
+
+.section_title{
+	font-size: 18px;
+}
+}
 
 
 

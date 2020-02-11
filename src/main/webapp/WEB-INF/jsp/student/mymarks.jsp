@@ -14,6 +14,11 @@
 </head>
 
 <body>
+	<c:if test="${result != null}">
+		<div class="message">
+			<p><fmt:message key="${result}"/></p>
+		</div>
+	</c:if>
 
 <div class="content">
 <section class="section">
@@ -42,18 +47,19 @@
 		<td><c:out value="${task.mark}"/>/10</td>
 		<td><c:out value="${task.feedback}"/></td>
 		<c:if test="${task.filePath != 'NULL'}">
-		<td><fmt:message key="message.uploadedtask"/></td>
+			<td><fmt:message key="message.uploadedtask"/></td>
 		</c:if>
 		<c:if test="${task.filePath == 'NULL'}">	
-		<td>
-			<form method="post" action="controller" enctype="multipart/form-data">
-				<input type="file" name="student_task"/>
-				<input type="hidden" name="task_id" value="${task.id}"/>
-				<input type="hidden" name="course_id" value="${courseId}"/>
-				<input type="hidden" name="command" value="uploadStudentTask"/>
-				<input type="submit" value="<fmt:message key="button.upload"/>"/>
-			</form>
-		</td>
+			<td>
+				<form method="post" action="controller" enctype="multipart/form-data">
+					<input type="file" name="student_task"/>
+					<input type="hidden" name="task_id" value="${task.id}"/>
+					<input type="hidden" name="date_to" value="${task.dateTo}"/>
+					<input type="hidden" name="course_id" value="${courseId}"/>
+					<input type="hidden" name="command" value="uploadStudentTask"/>
+					<input type="submit" value="<fmt:message key="button.upload"/>"/>
+				</form>
+			</td>
 		</c:if>
 	</tr>
     </c:forEach>

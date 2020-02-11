@@ -2,12 +2,10 @@ package main.java.com.epam.training.command.impl.common;
 
 import main.java.com.epam.training.command.Command;
 import main.java.com.epam.training.command.CommandResult;
-import main.java.com.epam.training.constant.PagesConstant;
+import main.java.com.epam.training.constant.Pages;
 import main.java.com.epam.training.dto.CourseDto;
-import main.java.com.epam.training.entity.Course;
 import main.java.com.epam.training.exception.ServiceException;
 import main.java.com.epam.training.service.CourseDtoService;
-import main.java.com.epam.training.service.CoursesService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,8 +21,9 @@ public class ShowMainPageCommand implements Command {
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
         List<CourseDto> courses = service.showCourses();
+        String enrollResult = request.getParameter("result");
         request.setAttribute("courses", courses);
-
-        return CommandResult.forward(PagesConstant.MAIN);
+        request.setAttribute("result", enrollResult);
+        return CommandResult.forward(Pages.MAIN);
     }
 }

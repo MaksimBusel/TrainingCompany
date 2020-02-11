@@ -6,11 +6,13 @@ import main.java.com.epam.training.command.impl.student.*;
 import main.java.com.epam.training.command.impl.teacher.*;
 import main.java.com.epam.training.constant.CommandType;
 import main.java.com.epam.training.dao.DaoHelperFactory;
+import main.java.com.epam.training.exception.UnknownCommandException;
 import main.java.com.epam.training.service.*;
 
 public class CommandFactory {
+    private static final String UNKNOWN_COMMAND = "Unknown command";
 
-    public Command findCommand(String command) {
+    public Command findCommand(String command) throws UnknownCommandException {
         System.out.println(command);
         switch (command) {
             case CommandType.LOGIN:
@@ -69,9 +71,13 @@ public class CommandFactory {
                 return new DownloadStudentTaskCommand(new StudentTaskService(new DaoHelperFactory()));
             case CommandType.ADD_STUDENT_TASK:
                 return new AddStudentTaskCommand(new StudentTaskService(new DaoHelperFactory()));
+            case CommandType.SHOW_LOGIN_PAGE:
+                return new ShowLoginPageCommand();
+            case CommandType.SHOW_ERROR_PAGE:
+                return new ShowErrorPageCommand();
 
             default:
-                throw new IllegalArgumentException("Unknown command" + command);
+                throw new UnknownCommandException(UNKNOWN_COMMAND + command);
         }
     }
 }

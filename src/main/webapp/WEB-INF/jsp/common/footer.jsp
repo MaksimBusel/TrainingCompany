@@ -15,15 +15,15 @@
 		<footer>
 			<div class="footer_inner">
 				<span><fmt:message key="message.allrights"/>&copy; 2020</span>
-				<!--  
+			</div>	
+			<!--  
 				<span class="social"> 
 					<a href="#"><img src="/main/webapp/css/img/Facebook.png" alt=""></a>
 					<a href="#"><img src="/img/Instagram.png" alt=""></a>
 					<a href="#"><img src="/img/VK.png" alt=""></a>
 					<a href="#"><img src="/img/Telegram.png" alt=""></a>
 				</span>
-				!-->
-			</div>	
+			!-->
 		</footer>
 </body>
 </html>

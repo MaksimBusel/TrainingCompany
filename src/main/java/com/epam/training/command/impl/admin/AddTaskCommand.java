@@ -14,9 +14,13 @@ import java.time.LocalDate;
 
 public class AddTaskCommand implements Command {
     private static final String COURSE_ID_PARAMETER="&course_id=";
+    private static final String ADDED_RESULT = "&result=";
+    private static final String COURSE_ID = "course_id";
+    private static final String TASK_NAME = "task_name";
+    private static final String DATE_FROM = "date_from";
+    private static final String DATE_TO = "date_to";
 
     private TaskService service;
-    StudentTaskService studentTaskService;
 
     public AddTaskCommand(TaskService service) {
         this.service = service;
@@ -24,15 +28,16 @@ public class AddTaskCommand implements Command {
 
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
-        String id = request.getParameter("course_id");
-        long courseId = Long.valueOf(id);
-        String name = request.getParameter("task_name");
-        String dateFrom = request.getParameter("date_from");
-        String dateTo = request.getParameter("date_to");
+        String id = request.getParameter(COURSE_ID);
+        long courseId = Long.parseLong(id);
+        String name = request.getParameter(TASK_NAME);
+        String dateFrom = request.getParameter(DATE_FROM);
+        String dateTo = request.getParameter(DATE_TO);
         LocalDate localDateFrom = LocalDate.parse(dateFrom);
         LocalDate localDateTo = LocalDate.parse(dateTo);
-        service.addTask(courseId, name, localDateFrom, localDateTo);
+        String result = service.addTask(courseId, name, localDateFrom, localDateTo);
 
-        return CommandResult.redirect(RedirectUrlCreator.create(CommandType.SHOW_MANAGE_TASKS_PAGE)+COURSE_ID_PARAMETER +courseId);
+        return CommandResult.redirect(RedirectUrlCreator.create(CommandType.SHOW_MANAGE_TASKS_PAGE)+COURSE_ID_PARAMETER +
+                courseId+ ADDED_RESULT +result);
     }
 }

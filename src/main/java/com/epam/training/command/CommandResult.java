@@ -1,7 +1,6 @@
 package main.java.com.epam.training.command;
 
 public class CommandResult {
-
     private final String page;
     private final boolean isRedirect;
 

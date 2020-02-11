@@ -28,4 +28,6 @@ public class CommandType {
     public final static String UPLOAD_STUDENT_TASK = "uploadStudentTask";
     public final static String DOWNLOAD_STUDENT_TASK = "downloadStudentTask";
     public final static String ADD_STUDENT_TASK = "addStudentTask";
+    public final static String SHOW_LOGIN_PAGE = "showLoginPage";
+    public final static String SHOW_ERROR_PAGE = "showErrorPage";
 }

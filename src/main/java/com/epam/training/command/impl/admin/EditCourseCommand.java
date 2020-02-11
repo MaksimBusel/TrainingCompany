@@ -12,6 +12,14 @@ import javax.servlet.http.HttpServletResponse;
 import java.time.LocalDate;
 
 public class EditCourseCommand implements Command {
+    private static final String EDIT_RESULT = "&result=";
+    private static final String COURSE_ID = "course_id";
+    private static final String COURSE_NAME = "course_name";
+    private static final String DESCRIPTION = "description";
+    private static final String TEACHER = "teacher";
+    private static final String DATE_FROM = "date_from";
+    private static final String DATE_TO = "date_to";
+
     private CoursesService service;
 
     public EditCourseCommand(CoursesService service) {
@@ -20,18 +28,18 @@ public class EditCourseCommand implements Command {
 
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
-        String course = request.getParameter("course_id");
-        long courseId = Long.valueOf(course);
-        String name = request.getParameter("course_name");
-        String description = request.getParameter("description");
-        String dateFrom = request.getParameter("date_from");
-        String dateTo = request.getParameter("date_to");
+        String course = request.getParameter(COURSE_ID);
+        long courseId = Long.parseLong(course);
+        String name = request.getParameter(COURSE_NAME);
+        String description = request.getParameter(DESCRIPTION);
+        String dateFrom = request.getParameter(DATE_FROM);
+        String dateTo = request.getParameter(DATE_TO);
         LocalDate localDateFrom = LocalDate.parse(dateFrom);
         LocalDate localDateTo = LocalDate.parse(dateTo);
-        String teacher = request.getParameter("teacher");
-        long teacherId = Long.valueOf(teacher);
-        service.editCourse(courseId, teacherId, name, description, localDateFrom, localDateTo);
+        String teacher = request.getParameter(TEACHER);
+        long teacherId = Long.parseLong(teacher);
+        String result = service.editCourse(courseId, teacherId, name, description, localDateFrom, localDateTo);
 
-        return CommandResult.redirect(RedirectUrlCreator.create(CommandType.SHOW_EDIT_COURSE_PAGE));
+        return CommandResult.redirect(RedirectUrlCreator.create(CommandType.SHOW_EDIT_COURSE_PAGE)+ EDIT_RESULT +result);
     }
 }

@@ -1,30 +1,28 @@
 package main.java.com.epam.training.filter;
 
 import javax.servlet.*;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class EncodingFilter implements Filter {
-    private static final String FILTERABLE_CONTENT_TYPE = "application/x-www-form-urlencoded";
-    private static final String ENCODING_DEFAULT = "UTF-8";
-    private static final String ENCODING_INIT_PARAM_NAME = "encoding";
-    private String encoding;
+    private String code;
+
+    public void init(FilterConfig fConfig) throws ServletException {
+        code = fConfig.getInitParameter("encoding");
+    }
+
+    public void doFilter(ServletRequest request, ServletResponse response,
+                         FilterChain chain) throws IOException, ServletException {
+        String codeRequest = request.getCharacterEncoding();
+        if (code != null && !code.equalsIgnoreCase(codeRequest)) {
+            request.setCharacterEncoding(code);
+            response.setCharacterEncoding(code);
+        }
+        chain.doFilter(request, response);
+    }
 
     public void destroy() {
-    }
-
-    public void doFilter(ServletRequest req, ServletResponse resp,
-                         FilterChain chain) throws ServletException, IOException {
-        String contentType = req.getContentType();
-        if (contentType != null && contentType.startsWith(FILTERABLE_CONTENT_TYPE)) {
-            req.setCharacterEncoding(encoding);
-        }
-        chain.doFilter(req, resp);
-    }
-
-    public void init(FilterConfig config) throws ServletException {
-        encoding = config.getInitParameter(ENCODING_INIT_PARAM_NAME);
-        if (encoding == null) {
-            encoding = ENCODING_DEFAULT;
-        }
+        code = null;
     }
 }

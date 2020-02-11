@@ -5,12 +5,6 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 public class Task implements Identifable, Serializable {
-    public static final String ID = "task_id";
-    public static final String TASK_NAME = "task_name";
-    public static final String DATE_FROM = "date_from";
-    public static final String DATE_TO = "date_to";
-    public static final String TABLE = "tasks";
-
     private long id;
     private String name;
     private LocalDate dateFrom;

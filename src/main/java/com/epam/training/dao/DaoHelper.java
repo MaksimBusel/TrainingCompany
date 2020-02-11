@@ -5,7 +5,6 @@ import main.java.com.epam.training.connection.ProxyConnection;
 import main.java.com.epam.training.dao.impl.*;
 import main.java.com.epam.training.exception.DaoException;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 
 public class DaoHelper implements AutoCloseable {
@@ -44,8 +43,12 @@ public class DaoHelper implements AutoCloseable {
     }
 
     @Override
-    public void close() throws SQLException {
-        connection.close();
+    public void close() throws DaoException {
+        try {
+            connection.close();
+        } catch (SQLException e) {
+            throw new DaoException(e);
+        }
     }
 
     public void startTransaction() throws DaoException {

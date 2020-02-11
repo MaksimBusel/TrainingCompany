@@ -1,72 +1,70 @@
 package main.java.com.epam.training.service;
 
-import main.java.com.epam.training.dao.impl.CourseDaoImpl;
+import main.java.com.epam.training.dao.api.CourseDao;
 import main.java.com.epam.training.dao.DaoHelper;
 import main.java.com.epam.training.dao.DaoHelperFactory;
 import main.java.com.epam.training.entity.Course;
 import main.java.com.epam.training.exception.DaoException;
 import main.java.com.epam.training.exception.ServiceException;
 
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 
 public class CoursesService {
-    DaoHelperFactory daoHelperFactory;
+    private static final String DATE_ERROR_KEY = "message.coursedateerror";
+    private static final String EDIT_SUCCESS_KEY = "message.editcourse";
+    private static final String ADD_SUCCESS_KEY = "message.addedcourse";
+    private static final String DELETE_SUCCESS_KEY = "message.deletedcourse";
+    private DaoHelperFactory daoHelperFactory;
 
     public CoursesService(DaoHelperFactory daoHelperFactory) {
         this.daoHelperFactory = daoHelperFactory;
     }
 
-    public void enrollCourse() throws ServiceException {
-        try (DaoHelper helper = daoHelperFactory.create()) {
-            CourseDaoImpl dao = helper.createCourseDao();
-        } catch (SQLException e) {
-            throw new ServiceException(e);
-        }
-    }
-
-    public void editCourse(long courseId, long teacherId, String courseName, String description, LocalDate dateFrom,
+    public String editCourse(long courseId, long teacherId, String courseName, String description, LocalDate dateFrom,
                            LocalDate dateTo) throws ServiceException {
         try (DaoHelper helper = daoHelperFactory.create()) {
-            CourseDaoImpl dao = helper.createCourseDao();
+            CourseDao dao = helper.createCourseDao();
             if (dateFrom.isBefore(dateTo)) {
                 dao.updateCourseById(teacherId, courseName, description, dateFrom, dateTo, courseId);
+                return EDIT_SUCCESS_KEY;
             } else{
-                throw new RuntimeException(); //change
+                return DATE_ERROR_KEY;
             }
-        } catch (DaoException | SQLException e) {
+        } catch (DaoException e) {
             throw new ServiceException(e);
         }
     }
 
-    public void addCourse(long teacherId, String name, String description, LocalDate dateFrom, LocalDate dateTo) throws ServiceException {
+    public String addCourse(long teacherId, String name, String description, LocalDate dateFrom, LocalDate dateTo) throws ServiceException {
         try (DaoHelper helper = daoHelperFactory.create()) {
-            CourseDaoImpl dao = helper.createCourseDao();
+            CourseDao dao = helper.createCourseDao();
             if (dateFrom.isBefore(dateTo) && dateFrom.isAfter(LocalDate.now())) {
                 dao.save(teacherId, name, description, dateFrom, dateTo);
+                return ADD_SUCCESS_KEY;
             } else {
-                throw new RuntimeException(); //change
+                return DATE_ERROR_KEY;
             }
-        } catch (DaoException | SQLException e) {
+        } catch (DaoException e) {
             throw new ServiceException(e);
         }
     }
 
     public List<Course> showTeacherCourses(long teacherId) throws ServiceException {
         try (DaoHelper helper = daoHelperFactory.create()) {
-            CourseDaoImpl dao = helper.createCourseDao();
+            CourseDao dao = helper.createCourseDao();
             return dao.findTeacherCourses(teacherId);
-        } catch (DaoException | SQLException e) {
+        } catch (DaoException e) {
             throw new ServiceException(e);
         }
     }
 
-    public void lockCourse(long courseId) throws ServiceException {
+    public String lockCourse(long courseId) throws ServiceException {
         try (DaoHelper helper = daoHelperFactory.create()) {
-            CourseDaoImpl dao = helper.createCourseDao();
+            CourseDao dao = helper.createCourseDao();
             dao.removeById(courseId);
-        } catch (DaoException | SQLException e) {
+            return DELETE_SUCCESS_KEY;
+        } catch (DaoException e) {
             throw new ServiceException(e);
         }
     }

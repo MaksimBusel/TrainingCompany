@@ -12,8 +12,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class AddStudentTaskCommand implements Command {
+    private static final String COURSE_ID_PARAMETER = "&courseId=";
+    private static final String COURSE_ID = "course_id";
+    private static final String TASK_ID = "task_id";
+    private static final String USER = "user";
+
     private StudentTaskService service;
-    private static final String COURSE_ID = "&courseId=";
+
 
     public AddStudentTaskCommand(StudentTaskService service) {
         this.service = service;
@@ -21,14 +26,14 @@ public class AddStudentTaskCommand implements Command {
 
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
-        String task = request.getParameter("task_id");
-        long taskId= Long.valueOf(task);
-        String course = request.getParameter("course_id");
-        long courseId= Long.valueOf(course);
-        User user = (User) request.getSession().getAttribute("user");
+        String task = request.getParameter(TASK_ID);
+        long taskId= Long.parseLong(task);
+        String course = request.getParameter(COURSE_ID);
+        long courseId= Long.parseLong(course);
+        User user = (User) request.getSession().getAttribute(USER);
         long userId= user.getId();
         service.add(taskId, courseId, userId);
 
-        return CommandResult.redirect(RedirectUrlCreator.create(CommandType.SHOW_MY_MARKS)+COURSE_ID+courseId);
+        return CommandResult.redirect(RedirectUrlCreator.create(CommandType.SHOW_MY_MARKS)+COURSE_ID_PARAMETER+courseId);
     }
 }

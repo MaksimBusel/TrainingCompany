@@ -14,10 +14,18 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 import java.io.IOException;
+import java.time.LocalDate;
 
 public class UploadStudentTaskCommand implements Command {
+    private static final String COURSE_ID_PARAMETER = "&courseId=";
+    private static final String UPLOAD_RESULT = "&result=";
+    private static final String DATE_TO = "date_to";
+    private static final String COURSE_ID = "course_id";
+    private static final String TASK_ID = "task_id";
+    private static final String STUDENT_TASK = "student_task";
+    private static final String USER = "user";
+
     private StudentTaskService service;
-    private static final String COURSE_ID = "&courseId=";
 
     public UploadStudentTaskCommand(StudentTaskService service) {
         this.service = service;
@@ -25,20 +33,24 @@ public class UploadStudentTaskCommand implements Command {
 
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) throws ServiceException {
+        String result;
         try {
-            Part studentTask = request.getPart("student_task");
-            String task = request.getParameter("task_id");
-            long taskId= Long.valueOf(task);
+            Part studentTask = request.getPart(STUDENT_TASK);
+            String task = request.getParameter(TASK_ID);
+            long taskId= Long.parseLong(task);
             HttpSession session = request.getSession();
-            User student = (User) session.getAttribute("user");
+            User student = (User) session.getAttribute(USER);
             long userId = student.getId();
-            service.uploadStudentTask(studentTask, taskId, userId);
+            String dateTo = request.getParameter(DATE_TO);
+            LocalDate localDateTo = LocalDate.parse(dateTo);
+            result = service.uploadStudentTask(studentTask, taskId, userId, localDateTo);
         } catch (IOException | ServletException e) {
             throw new ServiceException(e);
         }
-        String course = request.getParameter("course_id");
-        long courseId = Long.valueOf(course);
+        String course = request.getParameter(COURSE_ID);
+        long courseId = Long.parseLong(course);
 
-        return CommandResult.redirect(RedirectUrlCreator.create(CommandType.SHOW_MY_MARKS)+COURSE_ID+courseId);
+        return CommandResult.redirect(RedirectUrlCreator.create(CommandType.SHOW_MY_MARKS)+COURSE_ID_PARAMETER +
+                courseId+ UPLOAD_RESULT + result);
     }
 }

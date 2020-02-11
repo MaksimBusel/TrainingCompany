@@ -1,5 +1,6 @@
 package main.java.com.epam.training.mapper;
 
+import main.java.com.epam.training.constant.EntityFields;
 import main.java.com.epam.training.entity.StudentTask;
 import main.java.com.epam.training.entity.Task;
 
@@ -10,16 +11,15 @@ public class StudentTaskRowMapper implements RowMapper<StudentTask>{
 
     @Override
     public StudentTask map(ResultSet resultSet) throws SQLException {
-        long id = resultSet.getLong(Task.ID);
-        long studentTaskId = resultSet.getLong(StudentTask.STUDENT_TASK_ID);
-        String name = resultSet.getString(Task.TASK_NAME);
-        String dateFrom = resultSet.getString(Task.DATE_FROM);
-        String dateTo = resultSet.getString(Task.DATE_TO);
-        Integer mark = resultSet.getInt(StudentTask.MARK);
-        String feedback = resultSet.getString(StudentTask.FEEDBACK);
-        String filePath = resultSet.getString(StudentTask.FILE_PATH);
-        StudentTask studentTask = new StudentTask(id, studentTaskId, name, dateFrom, dateTo, mark, feedback, filePath);
+        long taskId = resultSet.getLong(EntityFields.TASK_ID);
+        long studentTaskId = resultSet.getLong(EntityFields.STUDENT_TASK_ID);
+        String name = resultSet.getString(EntityFields.TASK_NAME);
+        String dateFrom = resultSet.getString(EntityFields.DATE_FROM);
+        String dateTo = resultSet.getString(EntityFields.DATE_TO);
+        Integer mark = resultSet.getInt(EntityFields.MARK);
+        String feedback = resultSet.getString(EntityFields.FEEDBACK);
+        String filePath = resultSet.getString(EntityFields.FILE_PATH);
 
-        return studentTask;
+        return new StudentTask(taskId, studentTaskId, name, dateFrom, dateTo, mark, feedback, filePath);
     }
 }

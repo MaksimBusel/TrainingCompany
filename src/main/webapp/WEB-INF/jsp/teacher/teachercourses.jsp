@@ -39,6 +39,7 @@
 		<td class="description"><c:out value="${course.description}"/></td>
 		<td><c:out value="${course.dateFrom}"/></td>
 		<td><c:out value="${course.dateTo}"/></td>
+		<c:if test="${course.lockCourse == 0}">
 		<td class="button">
 			<form action="controller" method= "get">
 			    <input type="hidden" name="course_id"  value="${course.id}"/>
@@ -51,11 +52,15 @@
 				<input type="submit" value="<fmt:message key="student.students"/>"/>
 			</form>
 			<form action="controller" method= "post">
-					<input type="hidden" name="course_id"  value="${course.id}"/>
-					<input type="hidden" name="command" value="manageTasks">
-					<input type="submit" value="<fmt:message key="button.managetasks"/>"/>
-				</form>
+				<input type="hidden" name="course_id"  value="${course.id}"/>
+				<input type="hidden" name="command" value="manageTasks">
+				<input type="submit" value="<fmt:message key="button.managetasks"/>"/>
+			</form>
 		</td>
+		</c:if>
+		<c:if test="${course.lockCourse == 1}">
+			<td class="cancelledcourse"><fmt:message key="message.cancelledcourse"/></td>
+		</c:if>
 	</tr>
     </c:forEach>
 </table>

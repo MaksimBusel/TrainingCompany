@@ -31,13 +31,19 @@
 			<th><fmt:message key="table.datefrom"/></th>
 			<th><fmt:message key="table.deadline"/></th>
 			<th><fmt:message key="table.teacher"/></th>
+		<th class="button"></th>
 		<th></th>
 	</tr>
 
 	<c:forEach  items="${myCourses}" var="course">
     <tr>
-		<td><a href="${request.contextPath}controller?command=showCourseTasks&course_id=${course.id}">${course.name}</a></td>
-		<td class="description"><c:out value="${course.description}"/></td>
+		<c:if test="${course.lockCourse == 0}">	
+			<td><a href="${request.contextPath}controller?command=showCourseTasks&course_id=${course.id}">${course.name}</a></td>
+		</c:if>
+		<c:if test="${course.lockCourse == 1}">	
+			<td>${course.name}</td>
+		</c:if>
+		<td class="description mycourse"><c:out value="${course.description}"/></td>
 		<td><c:out value="${course.dateFrom}"/></td>
 		<td><c:out value="${course.dateTo}"/></td>
 		<td><c:out value="${course.teacherFirstName} ${course.teacherLastName}"/></td>
@@ -48,6 +54,9 @@
 				<input type="submit" value="<fmt:message key="button.unenroll"/>"/>
 			</form>
 		</td>
+		<c:if test="${course.lockCourse == 1}">	
+			<td class="cancelledcourse"><fmt:message key="message.cancelledcourse"/></td>
+		</c:if>
 	</tr>
     </c:forEach>
 </table>
